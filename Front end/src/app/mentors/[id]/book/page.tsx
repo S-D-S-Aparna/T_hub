@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import MainLayout from "@/components/layout/MainLayout";
+import MentorsLayout from "@/components/layout/MentorsLayout";
 import { ArrowLeft, Calendar as CalendarIcon, Clock, Video, List, AlignLeft, CheckCircle2 } from "lucide-react";
-import axios from "axios";
+import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -55,7 +55,7 @@ export default function BookMentorDetails({ params }: { params: Promise<{ id: st
           }
         }
 
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/users/mentors/${mentorId}`);
+        const response = await api.get(`/users/mentors/${mentorId}`);
         setMentor(response.data.mentor);
         // Default stream to their first expertise if available
         if (response.data.mentor?.mentorProfile?.expertise?.length > 0) {
@@ -93,25 +93,20 @@ export default function BookMentorDetails({ params }: { params: Promise<{ id: st
         // Mock the backend booking for sample profiles
         await new Promise(resolve => setTimeout(resolve, 800));
       } else {
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/bookings`,
+        await api.post(
+          '/bookings',
           {
             mentorId: parseInt(mentorId),
             date: dateTime,
             stream,
             notes
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` }
           }
         );
       }
       router.push(`/mentors/booking-confirmed?stream=${encodeURIComponent(stream)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&mentor=${encodeURIComponent(mentor.name)}`);
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("Booking error:", error);
-      const message = axios.isAxiosError(error)
-        ? error.response?.data?.error
-        : "Failed to book session";
+      const message = error.response?.data?.error || "Failed to book session";
 
       alert(typeof message === "string" ? message : "Failed to book session");
       setSubmitting(false);
@@ -120,29 +115,29 @@ export default function BookMentorDetails({ params }: { params: Promise<{ id: st
 
   if (loading) {
     return (
-      <MainLayout>
+      <MentorsLayout>
         <div className="flex justify-center items-center h-64">
            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
         </div>
-      </MainLayout>
+      </MentorsLayout>
     );
   }
 
   if (!mentor) {
     return (
-      <MainLayout>
+      <MentorsLayout>
         <div className="text-center py-20">
           <h1 className="text-2xl font-bold text-gray-800">Mentor Not Found</h1>
           <Link href="/mentors" className="text-indigo-600 hover:underline mt-4 inline-flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" /> Back to Mentors
           </Link>
         </div>
-      </MainLayout>
+      </MentorsLayout>
     );
   }
 
   return (
-    <MainLayout>
+    <MentorsLayout>
       <div className="max-w-4xl mx-auto">
         <Link href={`/mentors/${mentorId}`} className="text-gray-500 hover:text-indigo-600 mb-6 inline-flex items-center gap-2 transition-colors font-medium">
           <ArrowLeft className="w-4 h-4" /> Back to Profile
@@ -297,6 +292,6 @@ export default function BookMentorDetails({ params }: { params: Promise<{ id: st
 
         </div>
       </div>
-    </MainLayout>
+    </MentorsLayout>
   );
 }

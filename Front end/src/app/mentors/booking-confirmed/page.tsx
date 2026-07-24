@@ -1,7 +1,7 @@
 "use client";
 
 import MainLayout from "@/components/layout/MainLayout";
-import { CheckCircle, CalendarDays, ArrowRight, Home } from "lucide-react";
+import { CheckCircle2, Video } from "lucide-react";
 import Link from "next/link";
 import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
@@ -11,8 +11,8 @@ function BookingConfirmedContent() {
   const searchParams = useSearchParams();
   const mentor = searchParams.get("mentor");
   const stream = searchParams.get("stream");
-  const date = searchParams.get("date");
-  const time = searchParams.get("time");
+  const date = searchParams.get("date") || "Nov 15, 2024";
+  const time = searchParams.get("time") || "10:00 AM IST";
 
   useEffect(() => {
     // Fire a nice confetti burst on success!
@@ -43,85 +43,55 @@ function BookingConfirmedContent() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto pt-10 pb-20">
-      <div className="bg-white rounded-3xl p-10 border border-gray-100 shadow-xl text-center relative overflow-hidden">
+    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 bg-gray-50">
+      <div className="bg-white rounded-[2rem] p-8 md:p-12 border border-gray-100 shadow-xl text-center max-w-lg w-full">
         
-        <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-green-400 to-emerald-500"></div>
-
-        <div className="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle className="w-12 h-12 text-green-500" />
+        <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle2 className="w-10 h-10 text-green-500" />
         </div>
 
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Booking Confirmed!</h1>
-        <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
-          You&apos;re all set. We&apos;ve sent a calendar invite to your email with the Google Meet link.
+        <h1 className="text-3xl font-extrabold text-gray-900 mb-3 tracking-tight">Session Booked Successfully!</h1>
+        <p className="text-sm text-gray-500 mb-8 max-w-sm mx-auto font-medium">
+          Your mentor will contact you shortly with meeting details.
         </p>
 
-        {/* Dynamic Booking Details (EDD) */}
-        {(mentor || stream || date || time) && (
-          <div className="bg-indigo-50/50 rounded-2xl p-6 mb-8 border border-indigo-100 text-left">
-            <h3 className="font-bold text-indigo-900 mb-4 border-b border-indigo-100 pb-2">Session Details</h3>
-            <div className="grid grid-cols-2 gap-y-4">
-              {mentor && (
-                <div>
-                  <p className="text-xs text-indigo-500 uppercase tracking-wider font-semibold">Mentor</p>
-                  <p className="text-gray-800 font-medium">{mentor}</p>
-                </div>
-              )}
-              {stream && (
-                <div>
-                  <p className="text-xs text-indigo-500 uppercase tracking-wider font-semibold">Stream</p>
-                  <p className="text-gray-800 font-medium">{stream}</p>
-                </div>
-              )}
-              {date && (
-                <div>
-                  <p className="text-xs text-indigo-500 uppercase tracking-wider font-semibold">Date</p>
-                  <p className="text-gray-800 font-medium">{date}</p>
-                </div>
-              )}
-              {time && (
-                <div>
-                  <p className="text-xs text-indigo-500 uppercase tracking-wider font-semibold">Time</p>
-                  <p className="text-gray-800 font-medium">{time}</p>
-                </div>
-              )}
+        <div className="bg-gray-50 rounded-2xl p-5 mb-8 border border-gray-100 text-left text-sm">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center pb-3 border-b border-gray-200/60">
+              <span className="text-gray-500 font-medium">Mentor</span>
+              <span className="text-gray-900 font-bold">{mentor || "Jane Doe"}</span>
+            </div>
+            <div className="flex justify-between items-center pb-3 border-b border-gray-200/60">
+              <span className="text-gray-500 font-medium">Category</span>
+              <span className="text-gray-900 font-bold">{stream || "Tech & Upskilling"}</span>
+            </div>
+            <div className="flex justify-between items-center pb-3 border-b border-gray-200/60">
+              <span className="text-gray-500 font-medium">Date</span>
+              <span className="text-gray-900 font-bold">{date}</span>
+            </div>
+            <div className="flex justify-between items-center pb-3 border-b border-gray-200/60">
+              <span className="text-gray-500 font-medium">Time</span>
+              <span className="text-gray-900 font-bold">{time}</span>
+            </div>
+            <div className="flex justify-between items-center pb-3 border-b border-gray-200/60">
+              <span className="text-gray-500 font-medium">Session Duration</span>
+              <span className="text-gray-900 font-bold">30 Mins</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-500 font-medium">Google Meet Link</span>
+              <a href="https://meet.google.com/abc-xyz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#4D28E0] font-bold hover:underline">
+                <Video className="w-4 h-4" /> meet.google.com/abc-xyz
+              </a>
             </div>
           </div>
-        )}
-
-        <div className="bg-gray-50 rounded-2xl p-6 mb-10 border border-gray-100 flex flex-col sm:flex-row items-center justify-center gap-4 text-left">
-           <CalendarDays className="w-10 h-10 text-indigo-500 shrink-0" />
-           <div>
-             <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Next Step for {stream || "Your Session"}</p>
-             {stream === "Sports" || stream === "Athletics" ? (
-                <p className="text-gray-800 font-medium text-sm sm:text-base">Get your athletic gear ready and outline your current training routines so the coach can optimize them.</p>
-             ) : stream?.includes("Exam") || stream?.includes("UPSC") || stream?.includes("JEE") ? (
-                <p className="text-gray-800 font-medium text-sm sm:text-base">Gather your latest mock test scores and highlight your weakest subjects for a targeted strategy session.</p>
-             ) : stream?.includes("Engineering") || stream?.includes("Design") || stream?.includes("Data") ? (
-                <p className="text-gray-800 font-medium text-sm sm:text-base">Ensure your portfolio or GitHub links are ready to share. Write down 3 technical roadblocks you&apos;re facing.</p>
-             ) : (
-                <p className="text-gray-800 font-medium text-sm sm:text-base">Prepare 3-5 specific questions for your mentor to make the most of your 1-on-1 session.</p>
-             )}
-           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link 
-            href="/dashboard" 
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-xl transition-all shadow-md shadow-indigo-200 flex items-center justify-center gap-2"
-          >
-            <Home className="w-5 h-5" /> View Dashboard
-          </Link>
-          
-          <Link 
-            href="/roadmap" 
-            className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 font-semibold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2"
-          >
-            Generate AI Roadmap <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-
+        <Link 
+          href="/dashboard" 
+          className="w-full bg-[#4D28E0] hover:bg-[#3d1eb3] text-white font-bold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center text-sm inline-block"
+        >
+          Go to Dashboard
+        </Link>
       </div>
     </div>
   );

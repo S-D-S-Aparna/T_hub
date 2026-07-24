@@ -53,7 +53,7 @@ export default function Navbar() {
           <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent leading-none">
             Be You
           </h1>
-          <p className="text-[10px] text-gray-500 font-medium tracking-wider">FOLLOWING YOUR PASSION</p>
+          <p className="text-[10px] text-gray-500 font-medium tracking-wider">FOLLOW YOUR PASSION</p>
         </div>
       </Link>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
                     </div>
                     <div>
                       <span className="text-sm text-indigo-700 font-semibold">AI Search: </span>
-                      <span className="text-sm text-indigo-600">"{searchValue}"</span>
+                      <span className="text-sm text-indigo-600">&quot;{searchValue}&quot;</span>
                     </div>
                   </button>
                 </div>

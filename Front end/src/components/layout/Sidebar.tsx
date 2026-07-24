@@ -24,6 +24,7 @@ const secondaryLinks = [
   { href: "/roadmap", label: "AI Roadmap", icon: Compass },
   { href: "/scholarships", label: "Scholarships", icon: Award },
   { href: "/resources", label: "Study Resources", icon: FileText },
+  { href: "/success-stories", label: "Success Stories", icon: Award },
 ];
 
 const userLinks = [
@@ -87,16 +88,6 @@ export default function Sidebar() {
             {userLinks.map((link) => (
               <NavItem key={link.href} {...link} />
             ))}
-          </div>
-        </div>
-
-        <div className="px-3 pt-4">
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-4 rounded-xl border border-indigo-100/50">
-            <h4 className="font-semibold text-indigo-900 mb-1 text-sm">Not sure what to choose?</h4>
-            <p className="text-xs text-indigo-700/80 mb-3">Take our Career Discovery Quiz and find the best path.</p>
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 rounded-lg text-xs font-medium transition-colors shadow-sm">
-              Start Quiz
-            </button>
           </div>
         </div>
       </div>

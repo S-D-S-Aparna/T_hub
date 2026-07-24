@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import api from "@/lib/api";
 import { Mail, Lock, ArrowRight } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -23,11 +24,15 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-      const res = await axios.post(`${apiUrl}/api/auth/login`, formData);
+      const res = await api.post('/auth/login', formData);
       login(res.data.token, res.data.user);
       router.push("/");
-    } catch (error: unknown) {
+    } catch (error: any) {
+      if (error.code === 'ERR_NETWORK' || error.response?.status === 502) {
+        setError("Our servers are currently resting. Please try again later, or explore our offline features!");
+        return;
+      }
+
       const message = axios.isAxiosError(error)
         ? error.response?.data?.error
         : "Invalid credentials";
@@ -43,7 +48,7 @@ export default function Login() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
             Be You
           </h1>
-          <p className="text-gray-500 text-sm font-medium">FOLLOWING YOUR PASSION</p>
+          <p className="text-gray-500 text-sm font-medium">FOLLOW YOUR PASSION</p>
         </div>
 
         <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Welcome Back</h2>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Star, Video, MessageSquare, Calendar, CheckCircle2 } from "lucide-react";
-import axios from "axios";
+import api from "@/lib/api";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -29,8 +29,8 @@ export default function ModuleMentors({ category }: { category: string }) {
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        // Using the proxy rewrite for /api
-        const response = await axios.get('/api/users/mentors');
+        // Using the centralized api client
+        const response = await api.get('/users/mentors');
         const allMentors: Mentor[] = response.data.mentors;
         
         // Filter by the specific category
@@ -41,7 +41,7 @@ export default function ModuleMentors({ category }: { category: string }) {
         // Limit to 4 mentors for the module preview
         setMentors(filtered.slice(0, 4));
       } catch (error) {
-        console.error("Failed to fetch mentors:", error);
+        // Silently handle error
       } finally {
         setLoading(false);
       }
@@ -76,9 +76,7 @@ export default function ModuleMentors({ category }: { category: string }) {
           <h2 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-purple-700">Expert Mentors Available</h2>
           <p className="text-gray-600 mt-1">Book a free 1:1 session with a {category} specialist</p>
         </div>
-        <Link href="/mentors" className="text-sm font-bold text-white bg-indigo-600 border border-transparent px-5 py-2.5 rounded-xl hover:bg-indigo-700 hover:shadow-md transition-all">
-          View All Mentors
-        </Link>
+        
       </div>
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">

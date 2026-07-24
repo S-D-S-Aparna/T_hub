@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import { ShieldCheck, Users, BookOpen, Calendar, Folder, Trash2, Plus, Loader2 } from "lucide-react";
-import axios from "axios";
+import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +32,7 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`\/api/${activeTab}`);
+      const res = await api.get(`/${activeTab}`);
       // APIs return { users: [] }, { scholarships: [] }, etc.
       setData(res.data[activeTab]);
     } catch (error) {
@@ -51,9 +51,7 @@ export default function AdminDashboard() {
     
     setActionLoading(true);
     try {
-      await axios.delete(`\/api/${activeTab}/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.delete(`/${activeTab}/${id}`);
       fetchData(); // Refresh list
     } catch (error) {
       console.error(`Failed to delete ${activeTab}:`, error);
@@ -66,9 +64,7 @@ export default function AdminDashboard() {
   const handleRoleChange = async (userId: number, newRole: string) => {
     setActionLoading(true);
     try {
-      await axios.patch(`\/api/users/${userId}/role`, { role: newRole }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.patch(`/users/${userId}/role`, { role: newRole });
       fetchData();
     } catch (error) {
       console.error("Failed to update role:", error);
@@ -82,9 +78,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     setActionLoading(true);
     try {
-      await axios.post(`\/api/${activeTab}`, formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.post(`/${activeTab}`, formData);
       setFormData({});
       setShowForm(false);
       fetchData(); // Refresh list

@@ -4,7 +4,7 @@ export const FEATURED_MENTORS: Record<string, any> = {
     name: "Sarah Jenkins",
     email: "sarah@example.com",
     isFeaturedSample: true,
-    featuredImage: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d1_200d_1f4bb/512.gif",
+    featuredImage: "https://i.pravatar.cc/150?img=5",
     mentorProfile: {
       bio: "Principal AI Engineer specializing in large language models and scalable infrastructure.",
       company: "Tech Giant Inc.",
@@ -21,7 +21,7 @@ export const FEATURED_MENTORS: Record<string, any> = {
     name: "David Chen",
     email: "david@example.com",
     isFeaturedSample: true,
-    featuredImage: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d1_200d_1f3a8/512.gif",
+    featuredImage: "https://i.pravatar.cc/150?img=11",
     mentorProfile: {
       bio: "Award-winning Creative Director helping you build portfolios that stand out globally.",
       company: "Creative Studio",
@@ -38,7 +38,7 @@ export const FEATURED_MENTORS: Record<string, any> = {
     name: "Ananya Sharma",
     email: "ananya@example.com",
     isFeaturedSample: true,
-    featuredImage: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d1_200d_1f393/512.gif",
+    featuredImage: "https://i.pravatar.cc/150?img=9",
     mentorProfile: {
       bio: "Secured AIR 14 in UPSC CSE. I help aspirants structure their study plans effectively.",
       company: "Gov of India",
@@ -55,7 +55,7 @@ export const FEATURED_MENTORS: Record<string, any> = {
     name: "Rahul Kumar",
     email: "rahul@example.com",
     isFeaturedSample: true,
-    featuredImage: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c3/512.gif",
+    featuredImage: "https://i.pravatar.cc/150?img=13",
     mentorProfile: {
       bio: "Former National Athlete and Olympic Coach. Let's optimize your athletic performance.",
       company: "National Sports Academy",
@@ -72,7 +72,7 @@ export const FEATURED_MENTORS: Record<string, any> = {
     name: "Dr. Priya Patel",
     email: "priya@example.com",
     isFeaturedSample: true,
-    featuredImage: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f9d1_200d_2695_fe0f/512.gif",
+    featuredImage: "https://i.pravatar.cc/150?img=47",
     mentorProfile: {
       bio: "Senior Surgeon guiding pre-med students and young doctors through their medical journey.",
       company: "City Hospital",

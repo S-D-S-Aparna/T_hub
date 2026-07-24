@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Be You | Following Your Passion",
+  title: "Be You | Follow Your Passion",
   description: "Career guidance, mentorship, AI roadmaps, and learning resources for students.",
 };
 

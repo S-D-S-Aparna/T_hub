@@ -58,8 +58,7 @@ export default function FloatingChatbot() {
          setMessages(prev => [...prev, { role: "ai", content: "Sorry, I encountered an error. Please try again." }]);
       }
     } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, { role: "ai", content: "Network error. Please try again." }]);
+      setMessages(prev => [...prev, { role: "ai", content: "Sorry, I encountered an error connecting to the server." }]);
     } finally {
       setIsLoading(false);
     }
