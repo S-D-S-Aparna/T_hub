@@ -5,8 +5,32 @@ import Link from "next/link";
 import { 
   ChevronRight, ArrowRight, MapPin, Star, Bot, Calendar, Activity, 
   Trophy, Building2, Users, Map, Award, Apple, Compass, 
-  Flame, Droplet, Medal, Target
+  Flame, Droplet, Medal, Target, MonitorPlay, Brain, LayoutDashboard,
+  User, Search, ShoppingBag, HeartPulse, CloudSun, MessageSquare
 } from "lucide-react";
+
+const sportsModules = [
+  { name: "Academies", icon: Building2, color: "text-blue-600", bg: "bg-blue-50", desc: "Find top training centers near you.", href: "/sports/academies" },
+  { name: "Coaches", icon: Users, color: "text-indigo-600", bg: "bg-indigo-50", desc: "Connect with expert sports mentors.", href: "/sports/coaches" },
+  { name: "Live Coaching", icon: MonitorPlay, color: "text-red-600", bg: "bg-red-50", desc: "Join interactive online sessions.", href: "/sports/live" },
+  { name: "Tournaments", icon: Target, color: "text-amber-600", bg: "bg-amber-50", desc: "Register for upcoming events.", href: "/sports/tournaments" },
+  { name: "Sports Grounds", icon: MapPin, color: "text-emerald-600", bg: "bg-emerald-50", desc: "Book turf, courts and grounds.", href: "/sports/grounds" },
+  { name: "Fitness Tracker", icon: Activity, color: "text-cyan-600", bg: "bg-cyan-50", desc: "Track steps, calories and workouts.", href: "/sports/fitness" },
+  { name: "Nutrition Planner", icon: Apple, color: "text-green-600", bg: "bg-green-50", desc: "Get personalized diet plans.", href: "/sports/nutrition" },
+  { name: "Sports AI Coach", icon: Bot, color: "text-purple-600", bg: "bg-purple-50", desc: "24/7 smart assistant for your queries.", href: "/sports/ai-coach" },
+  { name: "Career Roadmap", icon: Compass, color: "text-teal-600", bg: "bg-teal-50", desc: "Step-by-step professional guidance.", href: "/sports/roadmap" },
+  { name: "Scholarships", icon: Award, color: "text-yellow-600", bg: "bg-yellow-50", desc: "Discover sports funding and aid.", href: "/sports/scholarships" },
+  { name: "AI Analysis", icon: Brain, color: "text-violet-600", bg: "bg-violet-50", desc: "Upload videos for AI analysis.", href: "/sports/ai-analysis" },
+  { name: "Dashboard", icon: LayoutDashboard, color: "text-sky-600", bg: "bg-sky-50", desc: "Track your win rates and stats.", href: "/sports/dashboard" },
+  { name: "Athlete Profile", icon: User, color: "text-rose-600", bg: "bg-rose-50", desc: "Showcase your achievements.", href: "/sports/profile" },
+  { name: "Find Players", icon: Search, color: "text-orange-600", bg: "bg-orange-50", desc: "Match with players nearby.", href: "/sports/players" },
+  { name: "Sports Store", icon: ShoppingBag, color: "text-pink-600", bg: "bg-pink-50", desc: "Buy best gear and equipment.", href: "/sports/store" },
+  { name: "Training Calendar", icon: Calendar, color: "text-fuchsia-600", bg: "bg-fuchsia-50", desc: "Schedule your daily routines.", href: "/sports/calendar" },
+  { name: "Injury Recovery", icon: HeartPulse, color: "text-red-500", bg: "bg-red-50", desc: "Get recovery plans & exercises.", href: "/sports/recovery" },
+  { name: "Weather & AQI", icon: CloudSun, color: "text-sky-500", bg: "bg-sky-50", desc: "Check conditions before practice.", href: "/sports/weather" },
+  { name: "Achievements", icon: Medal, color: "text-yellow-500", bg: "bg-yellow-50", desc: "Earn badges for milestones.", href: "/sports/achievements" },
+  { name: "Community", icon: MessageSquare, color: "text-indigo-500", bg: "bg-indigo-50", desc: "Join sports discussions.", href: "/community" },
+];
 
 const allSports = [
   { name: "Cricket", icon: "🏏", desc: "Bat & Ball Team Sport", href: "/sports/cricket", color: "bg-[#2563eb]" },
@@ -48,19 +72,19 @@ export default function SportsHome() {
         <div className="flex-1 space-y-8">
           
           {/* Hero Banner */}
-          <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-[32px] p-8 md:p-12 border border-emerald-100 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
+          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-[32px] p-8 md:p-12 border border-indigo-100 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
             <div className="flex-1 z-10 relative">
-              <h1 className="text-4xl md:text-5xl font-extrabold text-teal-950 mb-4 leading-[1.15]">
-                Build Your <br/><span className="text-emerald-600">Sports Career Journey</span>
+              <h1 className="text-4xl md:text-5xl font-extrabold text-indigo-950 mb-4 leading-[1.15]">
+                Build Your <br/><span className="text-indigo-600">Sports Career Journey</span>
               </h1>
-              <p className="text-teal-900/70 mb-8 max-w-md text-sm md:text-base leading-relaxed font-medium">
+              <p className="text-indigo-900/70 mb-8 max-w-md text-sm md:text-base leading-relaxed font-medium">
                 Choose your sport, find the best academies, track your fitness, and become a champion.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="bg-emerald-600 text-white px-8 py-3.5 rounded-2xl font-bold shadow-lg shadow-emerald-200/50 hover:bg-emerald-700 hover:-translate-y-0.5 transition-all">
+                <button className="bg-indigo-600 text-white px-8 py-3.5 rounded-2xl font-bold shadow-lg shadow-indigo-200/50 hover:bg-indigo-700 hover:-translate-y-0.5 transition-all">
                   Explore Sports
                 </button>
-                <button className="bg-white text-emerald-600 px-8 py-3.5 rounded-2xl font-bold shadow-md shadow-gray-200/50 hover:bg-emerald-50 hover:-translate-y-0.5 transition-all flex items-center gap-2 group border border-gray-100">
+                <button className="bg-white text-indigo-600 px-8 py-3.5 rounded-2xl font-bold shadow-md shadow-gray-200/50 hover:bg-indigo-50 hover:-translate-y-0.5 transition-all flex items-center gap-2 group border border-gray-100">
                   Talent Discovery 🎯
                 </button>
               </div>
@@ -70,28 +94,28 @@ export default function SportsHome() {
             <div className="w-full md:w-96 relative z-10 hidden md:block">
               <div className="relative w-full h-64 overflow-visible flex items-center justify-center">
                 {/* Decorative background glow */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-emerald-300 via-teal-300 to-green-300 rounded-full blur-[60px] opacity-30"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-indigo-300 via-purple-300 to-fuchsia-300 rounded-full blur-[60px] opacity-30"></div>
                 
                 {/* Custom Avatar for Sports */}
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=SportsStar&style=circle&backgroundColor=transparent" alt="Athlete" className="w-48 h-48 relative z-10 drop-shadow-2xl bg-emerald-100 rounded-full border-4 border-white shadow-xl" />
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=SportsStar&style=circle&backgroundColor=transparent" alt="Athlete" className="w-48 h-48 relative z-10 drop-shadow-2xl bg-indigo-100 rounded-full border-4 border-white shadow-xl" />
                 
                 {/* Floating Elements (Bouncing) */}
-                <div className="absolute top-4 left-4 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-100 z-20">
+                <div className="absolute top-4 left-4 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-100 z-20" style={{ animationDuration: '3.2s' }}>
                   <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
                     <Trophy className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-bold text-gray-800 pr-1">Champion</span>
                 </div>
                 
-                <div className="absolute bottom-8 left-0 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-300 z-20">
-                  <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                <div className="absolute bottom-8 left-0 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-300 z-20" style={{ animationDuration: '4.5s' }}>
+                  <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
                     <Medal className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-bold text-gray-800 pr-1">Olympics</span>
                 </div>
                 
-                <div className="absolute top-16 right-0 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-500 z-20">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                <div className="absolute top-16 right-0 bg-white p-2.5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-2 animate-bounce delay-500 z-20" style={{ animationDuration: '3.8s' }}>
+                  <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
                      <Target className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-bold text-gray-800 pr-1">Focus</span>
@@ -117,45 +141,29 @@ export default function SportsHome() {
              </div>
           </div>
 
-          {/* Features Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-gradient-to-b from-[#f0fdf4] to-white rounded-[24px] p-5 border border-green-100 shadow-sm hover:shadow-md transition-all cursor-pointer group">
-              <h3 className="font-bold text-[#166534] mb-2">Sports Academies</h3>
-              <p className="text-[11px] text-gray-500 mb-4 leading-relaxed">Find top training centers and academies near your location.</p>
-              <div className="flex items-end justify-between mt-auto">
-                <span className="text-xs font-bold text-[#15803d] flex items-center gap-1">Find Academies &rarr;</span>
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl group-hover:scale-110 transition-transform">🏫</div>
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-b from-[#fef2f2] to-white rounded-[24px] p-5 border border-red-100 shadow-sm hover:shadow-md transition-all cursor-pointer group" onClick={() => window.location.href='/mentors'}>
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-bold text-[#991b1b]">Coaches & Mentors</h3>
-              </div>
-              <p className="text-[11px] text-gray-500 mb-4 leading-relaxed">Connect with expert coaches for personalized training programs.</p>
-              <div className="flex items-end justify-between mt-auto">
-                <span className="text-xs font-bold text-[#b91c1c] flex items-center gap-1">Find Coaches &rarr;</span>
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl group-hover:scale-110 transition-transform">👨‍🏫</div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-b from-[#eff6ff] to-white rounded-[24px] p-5 border border-blue-100 shadow-sm hover:shadow-md transition-all cursor-pointer group" onClick={() => window.location.href='/scholarships'}>
-              <h3 className="font-bold text-[#1e3a8a] mb-2">Sports Scholarships</h3>
-              <p className="text-[11px] text-gray-500 mb-4 leading-relaxed">Discover financial aid, government schemes, and sports quotas.</p>
-              <div className="flex items-end justify-between mt-auto">
-                <span className="text-xs font-bold text-[#1d4ed8] flex items-center gap-1">Explore Funding &rarr;</span>
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl group-hover:scale-110 transition-transform">🏆</div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-b from-[#fffbeb] to-white rounded-[24px] p-5 border border-amber-100 shadow-sm hover:shadow-md transition-all cursor-pointer group">
-              <h3 className="font-bold text-[#92400e] mb-2">Tournaments</h3>
-              <p className="text-[11px] text-gray-500 mb-4 leading-relaxed">Register for upcoming district, state, and national tournaments.</p>
-              <div className="flex items-end justify-between mt-auto">
-                <span className="text-xs font-bold text-[#b45309] flex items-center gap-1">View Calendar &rarr;</span>
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl group-hover:scale-110 transition-transform">📅</div>
-              </div>
-            </div>
+          {/* Comprehensive Sports Modules */}
+          <div className="mt-12">
+             <div className="flex justify-between items-end mb-6">
+               <div>
+                 <h2 className="text-2xl font-bold text-gray-900 mb-1">Be You - Sports Modules</h2>
+                 <p className="text-sm text-gray-500 font-medium">Everything you need to learn, train, compete and grow 🏆</p>
+               </div>
+               <button className="text-indigo-600 text-sm font-bold flex items-center gap-1 hover:text-indigo-800 transition-colors">
+                 View All <ArrowRight className="w-4 h-4" />
+               </button>
+             </div>
+             
+             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+               {sportsModules.map((mod, idx) => (
+                 <Link href={mod.href} key={idx} className="bg-white rounded-[20px] p-4 border border-gray-100 shadow-sm hover:shadow-xl hover:border-indigo-100 hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col h-full block">
+                   <div className={`w-12 h-12 ${mod.bg} ${mod.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm`}>
+                     <mod.icon className="w-6 h-6" strokeWidth={2.5} />
+                   </div>
+                   <h3 className="font-bold text-gray-900 text-[13px] mb-1.5 leading-tight">{mod.name}</h3>
+                   <p className="text-[11px] text-gray-500 leading-relaxed flex-grow">{mod.desc}</p>
+                 </Link>
+               ))}
+             </div>
           </div>
           
           {/* Find Academies Map */}
@@ -182,12 +190,12 @@ export default function SportsHome() {
         <div className="w-full xl:w-[320px] space-y-6">
           
           {/* AI Assistant */}
-          <div className="bg-white rounded-3xl p-6 border border-emerald-100 shadow-sm relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/80 to-teal-50/80 z-0"></div>
+          <div className="bg-white rounded-3xl p-6 border border-indigo-100 shadow-sm relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/80 to-purple-50/80 z-0"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                  <Bot className="w-6 h-6 text-[#059669]" />
+                  <Bot className="w-6 h-6 text-indigo-600" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Sports AI Coach <span className="text-yellow-500">✨</span></h3>
@@ -196,22 +204,22 @@ export default function SportsHome() {
               <p className="text-sm text-gray-600 mb-6 font-medium">Your smart guide for academies, training, and sports careers.</p>
               
               <div className="space-y-3 mb-6">
-                <p className="text-[11px] font-bold text-emerald-500 uppercase tracking-wider">Try asking me...</p>
-                <div className="bg-white border border-emerald-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-emerald-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
+                <p className="text-[11px] font-bold text-indigo-600 uppercase tracking-wider">Try asking me...</p>
+                <div className="bg-white border border-indigo-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-indigo-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
                   <span>How to get selected in Ranji Trophy?</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-emerald-300 group-hover/q:text-emerald-600 group-hover/q:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5 text-indigo-300 group-hover/q:text-indigo-600 group-hover/q:translate-x-1 transition-all" />
                 </div>
-                <div className="bg-white border border-emerald-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-emerald-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
+                <div className="bg-white border border-indigo-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-indigo-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
                   <span>Best Badminton Academies in India</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-emerald-300 group-hover/q:text-emerald-600 group-hover/q:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5 text-indigo-300 group-hover/q:text-indigo-600 group-hover/q:translate-x-1 transition-all" />
                 </div>
-                <div className="bg-white border border-emerald-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-emerald-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
+                <div className="bg-white border border-indigo-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-indigo-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
                   <span>Nutrition plan for a footballer</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-emerald-300 group-hover/q:text-emerald-600 group-hover/q:translate-x-1 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5 text-indigo-300 group-hover/q:text-indigo-600 group-hover/q:translate-x-1 transition-all" />
                 </div>
               </div>
               
-              <button className="w-full bg-[#059669] text-white font-bold py-3.5 rounded-xl shadow-md shadow-emerald-200 hover:bg-emerald-700 hover:-translate-y-0.5 transition-all" onClick={() => window.location.href='/chat'}>
+              <button className="w-full bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-md shadow-indigo-200 hover:bg-indigo-800 hover:-translate-y-0.5 transition-all" onClick={() => window.location.href='/chat'}>
                 Chat with AI Coach &rarr;
               </button>
             </div>

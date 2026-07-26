@@ -98,7 +98,7 @@ export default function EntranceExamsAfter12th() {
           <CheckCircle2 className="w-12 h-12 text-green-500" />
         </div>
         <h2 className="text-2xl font-bold text-gray-800 mb-3">End of Course Exploration</h2>
-        <p className="text-gray-600 max-w-xl mx-auto">
+        <p className="text-gray-600 max-w-5xl mx-auto">
           You have successfully reviewed the entrance exams and pathways available after 12th. Take your time to decide which exam aligns best with your career goals and start your focused preparation. Best of luck!
         </p>
       </div>

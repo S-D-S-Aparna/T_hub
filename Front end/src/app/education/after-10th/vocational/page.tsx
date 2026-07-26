@@ -45,7 +45,7 @@ export default function VocationalCourses() {
                <h1 className="text-3xl md:text-4xl font-black text-indigo-950 mb-4 leading-tight">
                  Build Your Future with <span className="text-indigo-700 block">Vocational & Skill Development</span>
                </h1>
-               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-xl leading-relaxed">
+               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-5xl leading-relaxed">
                  Learn industry-ready practical skills, earn certifications, and start your career faster with hands-on training.
                </p>
                

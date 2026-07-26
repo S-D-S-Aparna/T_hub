@@ -115,7 +115,7 @@ export default function SportsCareerRoadmap() {
           <CheckCircle2 className="w-12 h-12 text-teal-500" />
         </div>
         <h2 className="text-2xl font-bold text-gray-800 mb-3">End of Sports Exploration</h2>
-        <p className="text-gray-600 max-w-xl mx-auto">
+        <p className="text-gray-600 max-w-5xl mx-auto">
           You have reviewed the core career options and the foundational roadmap for sports. Take this knowledge onto the field and start your training journey today. Best of luck on your athletic path!
         </p>
       </div>

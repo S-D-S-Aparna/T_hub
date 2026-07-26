@@ -43,7 +43,7 @@ export default function ParamedicalCourses() {
                <h1 className="text-3xl md:text-4xl font-black text-purple-950 mb-4 leading-tight">
                  Choose Your Path in <span className="text-purple-700">Paramedical Courses</span>
                </h1>
-               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-xl leading-relaxed">
+               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-5xl leading-relaxed">
                  Start a rewarding career in healthcare with our wide range of paramedical courses. Serve, care and make a difference in people's lives.
                </p>
                

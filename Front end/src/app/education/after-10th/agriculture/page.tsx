@@ -45,7 +45,7 @@ export default function AgricultureCourses() {
                <h1 className="text-3xl md:text-4xl font-black text-green-950 mb-4 leading-tight">
                  Grow Your Future with <span className="text-green-700">Agriculture Courses</span>
                </h1>
-               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-xl leading-relaxed">
+               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-5xl leading-relaxed">
                  Explore a wide range of agriculture courses and build a sustainable career in farming, research, agribusiness, and allied sectors.
                </p>
                

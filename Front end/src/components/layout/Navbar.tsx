@@ -19,8 +19,13 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Filter suggestions based on typed text
   const filteredSuggestions = searchValue.trim()
@@ -151,7 +156,7 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        {user ? (
+        {mounted && (user ? (
           <>
             <button className="relative p-2 text-gray-600 hover:bg-gray-50 rounded-full transition-colors">
               <Bell className="w-5 h-5" />
@@ -182,7 +187,7 @@ export default function Navbar() {
                Sign Up
              </Link>
           </div>
-        )}
+        ))}
       </div>
     </nav>
   );

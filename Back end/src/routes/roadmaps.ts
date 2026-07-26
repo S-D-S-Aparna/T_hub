@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
+import { GoogleGenAI } from "@google/genai";
+
 const router = Router();
 const prisma = new PrismaClient();
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 import { authenticateToken, AuthRequest } from "../middleware/authMiddleware";
 
 const SYSTEM_INSTRUCTION = `
@@ -23,30 +26,18 @@ router.post("/", authenticateToken, async (req: AuthRequest, res) => {
     let milestonesStr = "[]";
     
     try {
-      const hfResponse = await fetch("https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          messages: [
-            { role: "system", content: SYSTEM_INSTRUCTION },
-            { role: "user", content: goal }
-          ],
-          max_tokens: 500,
-          temperature: 0.7
-        })
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: goal,
+        config: {
+          systemInstruction: SYSTEM_INSTRUCTION,
+          temperature: 0.7,
+        }
       });
 
-      if (!hfResponse.ok) {
-        throw new Error(`HuggingFace API error: ${hfResponse.statusText}`);
-      }
-
-      const data = await hfResponse.json();
-      milestonesStr = data.choices?.[0]?.message?.content || "[]";
+      milestonesStr = response.text || "[]";
     } catch (apiError) {
-      console.warn("AI generation failed or API key missing, using fallback.");
+      console.warn("AI generation failed or API key missing, using fallback.", apiError);
       milestonesStr = "INVALID"; // Will trigger the catch block below
     }
 

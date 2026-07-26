@@ -1,64 +1,106 @@
 "use client";
 
-import MainLayout from "@/components/layout/MainLayout";
-import { Bell, MonitorPlay, MessageSquare, Calendar, Bot, CheckCircle2 } from "lucide-react";
+import SportsLayout from "@/components/layout/SportsLayout";
+import Link from "next/link";
+import { ChevronLeft, Bell, CalendarClock, Droplets, Target, UserPlus } from "lucide-react";
 
-const notifications = [
-  { id: 1, type: "mentor", title: "Session Confirmed", message: "Your 1-on-1 session with Rahul Sharma is confirmed for tomorrow at 10:00 AM.", time: "10 mins ago", icon: MonitorPlay, color: "bg-blue-100 text-blue-600", read: false },
-  { id: 2, type: "ai", title: "New AI Recommendation", message: "Be You AI has generated a new learning roadmap based on your recent activity in Data Science.", time: "2 hours ago", icon: Bot, color: "bg-purple-100 text-purple-600", read: false },
-  { id: 3, type: "community", title: "New Message in UPSC Prep", message: "Priya replied to your question about Modern History resources.", time: "5 hours ago", icon: MessageSquare, color: "bg-indigo-100 text-indigo-600", read: true },
-  { id: 4, type: "event", title: "Upcoming Event Reminder", titleColor: "text-amber-800", message: "The 'Tech Careers 2026' webinar starts in 1 hour. Don't forget to join!", time: "1 day ago", icon: Calendar, color: "bg-amber-100 text-amber-600", read: true },
-  { id: 5, type: "system", title: "Profile Update Successful", message: "Your role was successfully updated to 'Student'.", time: "2 days ago", icon: CheckCircle2, color: "bg-green-100 text-green-600", read: true },
-];
+export default function SmartNotificationsPage() {
+  const notifications = [
+    {
+      id: 1,
+      type: "Match",
+      title: "Upcoming Match Tomorrow",
+      message: "City Cricket League semi-finals at 9:00 AM.",
+      time: "2h ago",
+      icon: <Target className="w-5 h-5 text-indigo-600" />,
+      bg: "bg-indigo-100",
+      unread: true
+    },
+    {
+      id: 2,
+      type: "Health",
+      title: "Hydration Reminder",
+      message: "You haven't logged your water intake in 4 hours.",
+      time: "4h ago",
+      icon: <Droplets className="w-5 h-5 text-blue-600" />,
+      bg: "bg-blue-100",
+      unread: true
+    },
+    {
+      id: 3,
+      type: "Coach",
+      title: "Session Rescheduled",
+      message: "Coach Arjun moved today's practice to 6:00 PM.",
+      time: "Yesterday",
+      icon: <CalendarClock className="w-5 h-5 text-amber-600" />,
+      bg: "bg-amber-100",
+      unread: false
+    },
+    {
+      id: 4,
+      type: "Community",
+      title: "New Follower",
+      message: "Rahul Varma started following your profile.",
+      time: "Yesterday",
+      icon: <UserPlus className="w-5 h-5 text-emerald-600" />,
+      bg: "bg-emerald-100",
+      unread: false
+    }
+  ];
 
-export default function Notifications() {
   return (
-    <MainLayout>
-      <div className="max-w-3xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-            <Bell className="w-6 h-6 text-indigo-600" /> Notifications
-          </h1>
-          <button className="text-indigo-600 text-sm font-medium hover:underline">
+    <SportsLayout>
+      <div className="max-w-xl mx-auto pb-20">
+        
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+          <div className="flex items-center gap-3">
+            <Link href="/sports" className="p-2 hover:bg-gray-50 rounded-full transition-colors">
+              <ChevronLeft className="w-5 h-5 text-gray-600" />
+            </Link>
+            <h1 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+               <Bell className="w-5 h-5 text-indigo-500" /> Notifications
+            </h1>
+          </div>
+          <button className="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
             Mark all as read
           </button>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex border-b border-gray-100 bg-gray-50">
-            <button className="flex-1 py-3 text-sm font-semibold text-indigo-700 border-b-2 border-indigo-600">All</button>
-            <button className="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Unread (2)</button>
-            <button className="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Mentors</button>
-            <button className="flex-1 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Community</button>
-          </div>
-
-          <div className="divide-y divide-gray-50">
+        {/* Notifications List */}
+        <div className="bg-white rounded-[32px] p-4 shadow-sm border border-gray-100">
+          <div className="space-y-1">
             {notifications.map((notif) => (
-              <div key={notif.id} className={`p-4 hover:bg-gray-50 transition-colors flex gap-4 cursor-pointer ${notif.read ? 'opacity-70' : 'bg-indigo-50/20'}`}>
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${notif.color}`}>
-                  <notif.icon className="w-6 h-6" />
+              <div key={notif.id} className={`flex items-start gap-4 p-4 rounded-2xl transition-colors cursor-pointer ${
+                notif.unread ? "bg-indigo-50/50 hover:bg-indigo-50" : "hover:bg-gray-50"
+              }`}>
+                
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${notif.bg}`}>
+                  {notif.icon}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className={`font-semibold text-sm ${notif.read ? 'text-gray-700' : 'text-gray-900'}`}>{notif.title}</h3>
-                    <span className="text-xs text-gray-400 whitespace-nowrap">{notif.time}</span>
+                
+                <div className="flex-1 pt-0.5">
+                  <div className="flex items-start justify-between mb-1">
+                    <h4 className={`text-sm ${notif.unread ? "font-bold text-gray-900" : "font-medium text-gray-700"}`}>
+                      {notif.title}
+                    </h4>
+                    <span className="text-[10px] font-bold text-gray-400 whitespace-nowrap ml-2">{notif.time}</span>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
+                  <p className="text-[12px] text-gray-500 leading-relaxed font-medium">
+                    {notif.message}
+                  </p>
                 </div>
-                {!notif.read && (
-                  <div className="w-2 h-2 bg-indigo-600 rounded-full mt-1.5 flex-shrink-0"></div>
+                
+                {notif.unread && (
+                  <div className="w-2.5 h-2.5 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></div>
                 )}
+                
               </div>
             ))}
           </div>
-          
-          <div className="p-4 border-t border-gray-100 text-center">
-             <button className="text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors">
-               Load More Notifications
-             </button>
-          </div>
         </div>
+
       </div>
-    </MainLayout>
+    </SportsLayout>
   );
 }

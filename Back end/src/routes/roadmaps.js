@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
+const genai_1 = require("@google/genai");
 const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
+const ai = new genai_1.GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 const authMiddleware_1 = require("../middleware/authMiddleware");
 const SYSTEM_INSTRUCTION = `
 You are Be You AI, an expert career counselor. 
@@ -22,29 +24,18 @@ router.post("/", authMiddleware_1.authenticateToken, async (req, res) => {
             return res.status(400).json({ error: "Goal is required" });
         let milestonesStr = "[]";
         try {
-            const hfResponse = await fetch("https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    messages: [
-                        { role: "system", content: SYSTEM_INSTRUCTION },
-                        { role: "user", content: goal }
-                    ],
-                    max_tokens: 500,
-                    temperature: 0.7
-                })
+            const response = await ai.models.generateContent({
+                model: 'gemini-2.5-flash',
+                contents: goal,
+                config: {
+                    systemInstruction: SYSTEM_INSTRUCTION,
+                    temperature: 0.7,
+                }
             });
-            if (!hfResponse.ok) {
-                throw new Error(`HuggingFace API error: ${hfResponse.statusText}`);
-            }
-            const data = await hfResponse.json();
-            milestonesStr = data.choices?.[0]?.message?.content || "[]";
+            milestonesStr = response.text || "[]";
         }
         catch (apiError) {
-            console.warn("AI generation failed or API key missing, using fallback.");
+            console.warn("AI generation failed or API key missing, using fallback.", apiError);
             milestonesStr = "INVALID"; // Will trigger the catch block below
         }
         // Clean up in case Gemini added markdown blocks

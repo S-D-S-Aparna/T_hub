@@ -46,7 +46,7 @@ export default function After12thPage() {
                <h1 className="text-3xl md:text-5xl font-black text-indigo-700 mb-4 leading-tight">
                  After 12th
                </h1>
-               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-xl leading-relaxed">
+               <p className="text-gray-600 mb-6 text-sm md:text-base font-medium max-w-5xl leading-relaxed">
                  Choose from a wide range of undergraduate courses and build a successful future.
                </p>
                

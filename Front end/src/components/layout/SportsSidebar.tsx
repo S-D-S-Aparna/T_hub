@@ -5,32 +5,67 @@ import { usePathname } from "next/navigation";
 import { 
   Home, Trophy, Building2, Users, MonitorPlay, Target, 
   MapPin, Activity, Apple, Bot, Compass, Award, Calendar, 
-  MessageSquare, Star, Bookmark, CalendarDays, Award as CertIcon, HelpCircle
+  MessageSquare, Star, Bookmark, CalendarDays, HelpCircle,
+  LineChart, User, ShoppingBag, HeartPulse, CloudSun, Medal, Bell,
+  Brain, LayoutDashboard, Search
 } from "lucide-react";
 
-const mainLinks = [
-  { href: "/sports", label: "Sports Home", icon: Home },
-  { href: "/sports/all", label: "All Sports", icon: Trophy },
-  { href: "/sports/academies", label: "Academies", icon: Building2 },
-  { href: "/sports/coaches", label: "Coaches", icon: Users },
-  { href: "/sports/live", label: "Live Coaching", icon: MonitorPlay },
-  { href: "/sports/tournaments", label: "Tournaments", icon: Target },
-  { href: "/sports/grounds", label: "Sports Grounds", icon: MapPin },
-  { href: "/sports/fitness", label: "Fitness Tracker", icon: Activity },
-  { href: "/sports/nutrition", label: "Nutrition Planner", icon: Apple },
-  { href: "/sports/ai-coach", label: "Sports AI Coach", icon: Bot },
-  { href: "/sports/roadmap", label: "Career Roadmap", icon: Compass },
-  { href: "/sports/scholarships", label: "Scholarships", icon: Award },
-  { href: "/sports/events", label: "Events", icon: Calendar },
-  { href: "/community", label: "Community", icon: MessageSquare },
-  { href: "/success-stories", label: "Success Stories", icon: Star },
+const sidebarGroups = [
+  {
+    title: "Explore",
+    links: [
+      { href: "/sports", label: "Sports Home", icon: Home },
+      { href: "/sports/all", label: "All Sports", icon: Trophy },
+      { href: "/community", label: "Community", icon: MessageSquare },
+      { href: "/success-stories", label: "Success Stories", icon: Star },
+    ]
+  },
+  {
+    title: "Learn & Train",
+    links: [
+      { href: "/sports/academies", label: "Academies", icon: Building2 },
+      { href: "/sports/coaches", label: "Coaches", icon: Users },
+      { href: "/sports/live", label: "Live Coaching", icon: MonitorPlay },
+      { href: "/sports/grounds", label: "Sports Grounds", icon: MapPin },
+      { href: "/sports/players", label: "Find Players", icon: Search },
+    ]
+  },
+  {
+    title: "Performance & Health",
+    links: [
+      { href: "/sports/fitness", label: "Fitness Tracker", icon: Activity },
+      { href: "/sports/nutrition", label: "Nutrition Planner", icon: Apple },
+      { href: "/sports/ai-analysis", label: "AI Performance Analysis", icon: Brain },
+      { href: "/sports/dashboard", label: "Performance Dashboard", icon: LayoutDashboard },
+      { href: "/sports/recovery", label: "Injury Recovery", icon: HeartPulse },
+    ]
+  },
+  {
+    title: "Compete & Grow",
+    links: [
+      { href: "/sports/tournaments", label: "Tournaments", icon: Target },
+      { href: "/sports/roadmap", label: "Career Roadmap", icon: Compass },
+      { href: "/sports/scholarships", label: "Scholarships", icon: Award },
+      { href: "/sports/achievements", label: "Achievements", icon: Medal },
+    ]
+  },
+  {
+    title: "Tools & Extras",
+    links: [
+      { href: "/sports/ai-coach", label: "Sports AI Coach", icon: Bot },
+      { href: "/sports/calendar", label: "Training Calendar", icon: Calendar },
+      { href: "/sports/store", label: "Sports Store", icon: ShoppingBag },
+      { href: "/sports/weather", label: "Weather & Air Quality", icon: CloudSun },
+    ]
+  }
 ];
 
 const userLinks = [
-  { href: "/dashboard", label: "My Dashboard", icon: Home },
+  { href: "/dashboard", label: "My Dashboard", icon: LayoutDashboard },
+  { href: "/sports/profile", label: "Athlete Profile", icon: User },
+  { href: "/notifications", label: "Smart Notifications", icon: Bell },
   { href: "/saved", label: "Saved", icon: Bookmark },
   { href: "/sports/bookings", label: "My Bookings", icon: CalendarDays },
-  { href: "/sports/certificates", label: "Certificates", icon: CertIcon },
   { href: "/support", label: "Help & Support", icon: HelpCircle },
 ];
 
@@ -44,28 +79,35 @@ export default function SportsSidebar() {
         href={href}
         className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
           isActive 
-            ? "bg-indigo-600 text-white shadow-md shadow-indigo-200" 
-            : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-700"
+            ? "bg-[#5A4BFF] text-white shadow-md shadow-indigo-200" 
+            : "text-[#334155] hover:bg-indigo-50 hover:text-[#5A4BFF]"
         }`}
       >
-        <Icon className={`w-[18px] h-[18px] ${isActive ? "text-white" : "text-gray-500"}`} />
+        <Icon className={`w-[20px] h-[20px] ${isActive ? "text-white" : "text-[#64748B]"}`} strokeWidth={isActive ? 2.5 : 2} />
         {label}
-        {isActive && <span className="ml-auto text-white">&gt;</span>}
       </Link>
     );
   };
 
   return (
     <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-100 overflow-y-auto z-40 hidden lg:block custom-scrollbar">
-      <div className="py-6 px-4 space-y-8">
+      <div className="py-6 px-4 space-y-6">
         
-        <div className="space-y-1">
-          {mainLinks.map((link) => (
-            <NavItem key={link.href} {...link} />
-          ))}
-        </div>
+        {sidebarGroups.map((group, idx) => (
+          <div key={idx} className="space-y-1">
+            <h4 className="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+              {group.title}
+            </h4>
+            {group.links.map((link) => (
+              <NavItem key={link.href} {...link} />
+            ))}
+          </div>
+        ))}
 
         <div className="pt-4 border-t border-gray-100 space-y-1">
+          <h4 className="px-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+            My Account
+          </h4>
           {userLinks.map((link) => (
             <NavItem key={link.href} {...link} />
           ))}
