@@ -1,39 +1,27 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, GraduationCap, MapPin, Search, ArrowRight, Award } from "lucide-react";
 
 export default function ScholarshipsPage() {
-  const scholarships = [
-    {
-      id: 1,
-      title: "National Sports Talent Search",
-      provider: "Sports Authority of India",
-      amount: "₹50,000 / year",
-      deadline: "30 Jun 2024",
-      type: "All Sports",
-      level: "National"
-    },
-    {
-      id: 2,
-      title: "State Cricket Excellence Grant",
-      provider: "State Cricket Association",
-      amount: "₹25,000 / year",
-      deadline: "15 Jul 2024",
-      type: "Cricket",
-      level: "State"
-    },
-    {
-      id: 3,
-      title: "Olympic Hopefuls Scholarship",
-      provider: "Youth Sports Foundation",
-      amount: "₹1,00,000 / year",
-      deadline: "31 Aug 2024",
-      type: "Athletics",
-      level: "International"
-    }
-  ];
+  const [scholarships, setScholarships] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/sports-scholarships')
+      .then(res => res.json())
+      .then(data => {
+        setScholarships(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
 
   return (
     <SportsLayout>
@@ -77,44 +65,43 @@ export default function ScholarshipsPage() {
           </div>
         </div>
 
-        {/* Scholarships List */}
-        <div className="space-y-4">
-          {scholarships.map((scholarship) => (
-            <div key={scholarship.id} className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all group relative overflow-hidden">
-              
-              <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                <Award className="w-24 h-24" />
-              </div>
-              
-              <div className="relative z-10">
-                <div className="flex gap-2 mb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-1 rounded-md">{scholarship.type}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-1 rounded-md">{scholarship.level}</span>
-                </div>
+        {/* Scholarship List */}
+        <div>
+          <div className="space-y-4">
+            {loading ? <p className="text-gray-500 text-sm">Loading scholarships...</p> : scholarships.map((scholarship) => (
+              <div key={scholarship.id} className="bg-white rounded-[24px] p-5 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-md transition-all group">
                 
-                <h3 className="font-bold text-gray-900 text-base leading-tight mb-1 group-hover:text-blue-700 transition-colors">{scholarship.title}</h3>
-                <p className="text-xs text-gray-500 font-medium mb-4 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5" /> {scholarship.provider}
-                </p>
-                
-                <div className="flex items-center justify-between border-t border-gray-50 pt-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0 border border-blue-100 group-hover:bg-blue-600 transition-colors">
+                    <Award className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors" />
+                  </div>
                   <div>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wide mb-0.5">Funding Amount</p>
-                    <p className="font-extrabold text-gray-900">{scholarship.amount}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[10px] text-red-400 font-bold uppercase tracking-wide mb-0.5">Deadline</p>
-                    <p className="font-bold text-gray-700 text-sm">{scholarship.deadline}</p>
+                    <h3 className="font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{scholarship.title}</h3>
+                    <p className="text-[11px] text-gray-500 font-medium mb-2">{scholarship.provider || scholarship.organization}</p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2 py-1 bg-gray-50 text-gray-600 text-[10px] font-bold rounded-md border border-gray-100">
+                        {scholarship.type || 'General'}
+                      </span>
+                      <span className="px-2 py-1 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-md border border-blue-100">
+                        {scholarship.level || 'National'}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <button className="w-full mt-4 flex items-center justify-center gap-2 bg-gray-50 text-blue-600 py-3 rounded-xl font-bold text-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                  View Details & Apply <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
+                <div className="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+                  <div className="text-left md:text-right">
+                    <p className="text-xs text-gray-500 font-medium mb-0.5">Amount</p>
+                    <p className="font-extrabold text-blue-600">{scholarship.amount}</p>
+                  </div>
+                  <button className="bg-gray-900 hover:bg-gray-800 text-white px-5 py-2 rounded-xl text-xs font-bold transition-colors mt-0 md:mt-3 flex items-center gap-1 group-hover:scale-105">
+                    Apply <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
 
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

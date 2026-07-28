@@ -1,48 +1,51 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, ChevronDown, Compass, CheckCircle2, Circle, ArrowRight } from "lucide-react";
 
 export default function CareerRoadmapPage() {
-  const steps = [
-    {
-      id: 1,
-      title: "Learn the Basics",
-      duration: "6-12 Months",
-      status: "completed",
-      icon: "12"
-    },
-    {
-      id: 2,
-      title: "Join Local Academy",
-      duration: "1-2 Years",
-      status: "active",
-      icon: "P"
-    },
-    {
-      id: 3,
-      title: "State Level Participation",
-      duration: "2-3 Years",
-      status: "pending",
-      icon: "S"
-    },
-    {
-      id: 4,
-      title: "National Level Selection",
-      duration: "3-5 Years",
-      status: "pending",
-      icon: "N"
-    },
-    {
-      id: 5,
-      title: "Professional Cricket",
-      duration: "5+ Years",
-      status: "pending",
-      icon: "R"
-    }
-  ];
+  const [roadmap, setRoadmap] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetch('http://localhost:5000/api/sports-roadmaps')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setRoadmap(data[0]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+  let steps = [];
+  if (roadmap && roadmap.milestones) {
+    try {
+      const parsed = JSON.parse(roadmap.milestones);
+      steps = parsed.map((m: string, i: number) => ({
+        id: i + 1,
+        title: m,
+        duration: "Variable",
+        status: i === 0 ? "completed" : (i === 1 ? "active" : "pending"),
+        icon: (i + 1).toString()
+      }));
+    } catch(e) {}
+  }
+  
+  if (steps.length === 0) {
+    steps = [
+      { id: 1, title: "Learn the Basics", duration: "6-12 Months", status: "completed", icon: "1" },
+      { id: 2, title: "Join Local Academy", duration: "1-2 Years", status: "active", icon: "2" },
+      { id: 3, title: "State Level Participation", duration: "2-3 Years", status: "pending", icon: "3" },
+      { id: 4, title: "National Level Selection", duration: "3-5 Years", status: "pending", icon: "4" },
+      { id: 5, title: "Professional Cricket", duration: "5+ Years", status: "pending", icon: "5" }
+    ];
+  }
   return (
     <SportsLayout>
       <div className="max-w-5xl mx-auto pb-20">
@@ -80,8 +83,8 @@ export default function CareerRoadmapPage() {
               <Compass className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="font-bold text-gray-900 text-[15px]">Cricket Player</h2>
-              <p className="text-xs text-gray-500 font-medium">Professional Roadmap</p>
+              <h2 className="font-bold text-gray-900 text-[15px]">{roadmap ? roadmap.title : "Loading..."}</h2>
+              <p className="text-xs text-gray-500 font-medium">{roadmap ? roadmap.goal : "Professional Roadmap"}</p>
             </div>
           </div>
           <ChevronDown className="w-5 h-5 text-gray-400" />
@@ -94,7 +97,7 @@ export default function CareerRoadmapPage() {
             <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gray-100"></div>
 
             <div className="space-y-8 relative">
-              {steps.map((step, index) => (
+              {steps.map((step: any, index: any) => (
                 <div key={step.id} className="flex gap-4">
                   
                   {/* Step Icon & Line Indicator */}

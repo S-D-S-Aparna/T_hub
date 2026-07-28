@@ -1,15 +1,42 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Activity, Play, CheckCircle2 } from "lucide-react";
 
 export default function InjuryRecoveryPage() {
-  const exercises = [
-    { id: 1, name: "Ankle Rotations", sets: "3 sets", reps: "10 reps", done: true },
-    { id: 2, name: "Resistance Band Flex", sets: "3 sets", reps: "15 reps", done: false },
-    { id: 3, name: "Calf Raises (Seated)", sets: "2 sets", reps: "12 reps", done: false }
-  ];
+  const [recoveryData, setRecoveryData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/recovery')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setRecoveryData(data[0]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+  let exercises: any[] = [];
+  if (recoveryData && recoveryData.exercises) {
+    try {
+      exercises = JSON.parse(recoveryData.exercises);
+    } catch(e) {}
+  }
+  
+  if (exercises.length === 0) {
+    exercises = [
+      { id: 1, name: "Ankle Rotations", sets: "3 sets", reps: "10 reps", done: true },
+      { id: 2, name: "Resistance Band Flex", sets: "3 sets", reps: "15 reps", done: false },
+      { id: 3, name: "Calf Raises (Seated)", sets: "2 sets", reps: "12 reps", done: false }
+    ];
+  }
 
   return (
     <SportsLayout>
@@ -48,41 +75,49 @@ export default function InjuryRecoveryPage() {
           </div>
 
           <p className="text-xs font-bold text-teal-100 uppercase tracking-widest mb-1">Current Plan</p>
-          <h2 className="text-2xl font-extrabold mb-6">Ankle Sprain Grade 1</h2>
+          <h2 className="text-2xl font-extrabold mb-6">{loading ? 'Loading...' : recoveryData?.injuryType || 'Ankle Sprain Grade 1'}</h2>
 
           <div className="mb-2 flex justify-between items-end">
             <div>
               <span className="text-3xl font-extrabold">Day 12</span>
-              <span className="text-sm font-bold text-teal-100 ml-1">/ 30</span>
+              <span className="text-sm font-bold text-teal-100 ml-1">/ {loading ? '...' : recoveryData?.durationDays || 30}</span>
             </div>
-            <span className="text-xs font-bold">40% Recovered</span>
+            <span className="text-xs font-bold">{loading ? '...' : recoveryData?.progress || 40}% Recovered</span>
           </div>
           
           <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
-            <div className="h-full bg-white rounded-full" style={{ width: '40%' }}></div>
+            <div className="h-full bg-white rounded-full" style={{ width: `${loading ? 40 : recoveryData?.progress || 40}%` }}></div>
           </div>
         </div>
 
-        {/* Today's Rehab */}
         <div className="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold text-gray-900">Today's Exercises</h2>
-            <span className="text-xs font-bold text-teal-600 bg-teal-50 px-3 py-1 rounded-full">1/3 Done</span>
+            <span className="text-xs font-bold text-teal-600 bg-teal-50 px-3 py-1 rounded-full">1/{exercises.length} Done</span>
           </div>
 
           <div className="space-y-3">
-            {exercises.map((exercise) => (
-              <div key={exercise.id} className="flex items-center gap-4 p-3 bg-gray-50 rounded-2xl border border-gray-100">
+            {exercises.map((exercise: any) => (
+              <div key={exercise.id} className="p-4 rounded-2xl border border-gray-100 hover:border-teal-200 hover:shadow-sm transition-all group flex items-center justify-between">
                 
-                <button className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                  exercise.done ? "bg-teal-100 text-teal-600" : "bg-white border border-gray-200 text-gray-400 hover:text-teal-500"
-                }`}>
-                  {exercise.done ? <CheckCircle2 className="w-6 h-6" /> : <Play className="w-4 h-4 ml-0.5" />}
-                </button>
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${exercise.done ? 'bg-teal-500 text-white' : 'bg-gray-50 text-gray-400 group-hover:bg-teal-50 group-hover:text-teal-600'}`}>
+                    <Play className="w-4 h-4 fill-current" />
+                  </div>
+                  <div>
+                    <h3 className={`font-bold text-sm ${exercise.done ? 'text-gray-400 line-through' : 'text-gray-900'}`}>{exercise.name}</h3>
+                    <p className="text-[11px] font-medium text-gray-500">{exercise.sets} • {exercise.reps}</p>
+                  </div>
+                </div>
 
-                <div className="flex-1">
-                  <h4 className={`text-sm font-bold ${exercise.done ? "text-gray-400 line-through" : "text-gray-900"}`}>{exercise.name}</h4>
-                  <p className="text-[11px] text-gray-500 font-medium">{exercise.sets} • {exercise.reps}</p>
+                <div className="flex items-center gap-3">
+                  {exercise.done ? (
+                    <span className="flex items-center gap-1 text-[10px] font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded-md">
+                      <CheckCircle2 className="w-3 h-3" /> Done
+                    </span>
+                  ) : (
+                    <button className="text-xs font-bold text-teal-600 hover:text-teal-700">Start</button>
+                  )}
                 </div>
 
               </div>
@@ -92,12 +127,10 @@ export default function InjuryRecoveryPage() {
           <div className="mt-6 p-4 bg-amber-50 border border-amber-100 rounded-2xl">
             <h4 className="text-xs font-bold text-amber-800 mb-1">Doctor's Note</h4>
             <p className="text-[11px] text-amber-700/80 font-medium leading-relaxed">
-              Ensure you do not overstretch. Stop immediately if you feel sharp pain. Apply ice for 10 mins after workout.
+              {loading ? 'Loading note...' : recoveryData?.doctorNote || "Ensure you do not overstretch. Stop immediately if you feel sharp pain. Apply ice for 10 mins after workout."}
             </p>
           </div>
-
         </div>
-
       </div>
     </SportsLayout>
   );

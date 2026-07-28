@@ -1,35 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Search, MapPin, Users } from "lucide-react";
 
 export default function FindPlayersPage() {
   const tabs = ["Cricket", "Football", "Badminton"];
+  const [players, setPlayers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/players')
+      .then(res => res.json())
+      .then(data => {
+        setPlayers(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
   
-  const players = [
-    {
-      id: 1,
-      name: "Rohit Kumar",
-      sport: "Cricket • Batsman",
-      location: "Hyderabad",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rohit&style=circle&backgroundColor=e2e8f0"
-    },
-    {
-      id: 2,
-      name: "Ananya R.",
-      sport: "Badminton • Singles",
-      location: "Secunderabad",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ananya&style=circle&backgroundColor=e2e8f0"
-    },
-    {
-      id: 3,
-      name: "Vikram Singh",
-      sport: "Football • Midfielder",
-      location: "Hyderabad",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Vikram&style=circle&backgroundColor=e2e8f0"
-    }
-  ];
+
 
   return (
     <SportsLayout>
@@ -89,31 +83,25 @@ export default function FindPlayersPage() {
         </div>
 
         {/* Players List */}
-        <div className="space-y-3">
-          {players.map((player) => (
-            <div key={player.id} className="bg-white rounded-[24px] p-4 shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-blue-100 transition-all group cursor-pointer">
-              
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-100 bg-slate-50 group-hover:border-blue-200 transition-colors">
-                  <img src={player.image} alt={player.name} className="w-full h-full object-cover" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {loading ? <p className="text-gray-500 text-sm">Loading players...</p> : players.map((player) => (
+              <div key={player.id} className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col items-center text-center group hover:shadow-md hover:border-indigo-100 transition-all cursor-pointer">
+                <div className="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-gray-50 group-hover:border-indigo-100 transition-colors">
+                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${player.user?.name || 'Player'}&style=circle&backgroundColor=e2e8f0`} alt={player.user?.name} className="w-full h-full object-cover" />
+                </div>
+                <h3 className="font-bold text-gray-900 group-hover:text-indigo-700 transition-colors">{player.user?.name || 'Player'}</h3>
+                <p className="text-[11px] font-bold text-gray-400 mb-2">{player.sport} • {player.skillLevel}</p>
+                
+                <div className="flex items-center gap-1 text-[11px] text-gray-500 font-medium bg-gray-50 px-2 py-1 rounded-md">
+                  <MapPin className="w-3 h-3 text-indigo-400" /> {player.location}
                 </div>
                 
-                <div>
-                  <h4 className="font-bold text-gray-900 text-sm mb-0.5">{player.name}</h4>
-                  <p className="text-[11px] text-gray-500 font-medium mb-1">{player.sport}</p>
-                  <div className="flex items-center gap-1 text-[10px] text-gray-400 font-medium">
-                    <MapPin className="w-3 h-3" /> {player.location}
-                  </div>
-                </div>
+                <button className="w-full mt-4 bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white py-2 rounded-xl text-xs font-bold transition-colors">
+                  Connect
+                </button>
               </div>
-
-              <button className="bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-xl text-[11px] font-bold transition-all border border-blue-100 shadow-sm">
-                Connect
-              </button>
-
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
       </div>
     </SportsLayout>

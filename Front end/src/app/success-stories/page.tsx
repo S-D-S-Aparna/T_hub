@@ -107,36 +107,6 @@ export default function SuccessStoriesPage() {
           <div className="absolute bottom-10 right-60 w-48 h-48 bg-indigo-400 rounded-full blur-3xl opacity-50"></div>
         </div>
 
-        {/* --- IMPACT METRICS --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto -mt-20 relative z-20 px-4">
-          <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-center gap-5">
-             <div className="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center shrink-0">
-               <Users className="w-7 h-7 text-[#4D28E0]" />
-             </div>
-             <div>
-               <p className="text-3xl font-extrabold text-gray-900">10,000+</p>
-               <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Mentorship Sessions</p>
-             </div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-center gap-5">
-             <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center shrink-0">
-               <Target className="w-7 h-7 text-green-600" />
-             </div>
-             <div>
-               <p className="text-3xl font-extrabold text-gray-900">500+</p>
-               <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Athletes Funded</p>
-             </div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 flex items-center gap-5">
-             <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
-               <BookOpen className="w-7 h-7 text-blue-600" />
-             </div>
-             <div>
-               <p className="text-3xl font-extrabold text-gray-900">1M+</p>
-               <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Students Reached</p>
-             </div>
-          </div>
-        </div>
 
         {/* --- CATEGORY FILTERS --- */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-12">

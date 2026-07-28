@@ -1,10 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
-import { ChevronLeft, MoreVertical, MapPin, Trophy, Star, Medal, Play, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, MoreVertical, MapPin, Trophy, Star, Medal, Play, Image as ImageIcon, CheckCircle } from "lucide-react";
 
 export default function AthleteProfilePage() {
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/athlete-profile')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setProfile(data[0]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  let stats = { matches: 0, trophies: 0, rank: 0 };
+  let achievements = [];
+  if (profile) {
+    try {
+      if (profile.stats) stats = { ...stats, ...JSON.parse(profile.stats) };
+      if (profile.achievements) achievements = JSON.parse(profile.achievements);
+    } catch(e) {}
+  }
   return (
     <SportsLayout>
       <div className="max-w-5xl mx-auto pb-20">
@@ -26,18 +53,18 @@ export default function AthleteProfilePage() {
             <div className="relative mb-4">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
                 <img 
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aparna&style=circle&backgroundColor=e2e8f0" 
-                  alt="Aparna S." 
+                  src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${profile?.user?.name || 'Aparna'}&style=circle&backgroundColor=e2e8f0`}
+                  alt={profile?.user?.name || "Athlete"} 
                   className="w-full h-full object-cover bg-slate-100"
                 />
               </div>
               <div className="absolute bottom-0 right-0 w-6 h-6 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
-                 <CheckCircleIcon className="w-3.5 h-3.5 text-white" />
+                 <CheckCircle className="w-3.5 h-3.5 text-white" />
               </div>
             </div>
             
-            <h2 className="text-xl font-extrabold text-gray-900">Aparna S.</h2>
-            <p className="text-[13px] font-bold text-gray-500 mb-2">Cricket Player</p>
+            <h2 className="text-xl font-extrabold text-gray-900">{loading ? 'Loading...' : profile?.user?.name || 'Athlete Name'}</h2>
+            <p className="text-[13px] font-bold text-gray-500 mb-2">{profile?.sport || 'Sport'} Player</p>
             <div className="flex items-center gap-1 text-[11px] font-medium text-gray-400">
               <MapPin className="w-3 h-3" /> Hyderabad, India
             </div>
@@ -47,15 +74,15 @@ export default function AthleteProfilePage() {
           <div className="grid grid-cols-3 gap-4 border-t border-gray-100 pt-6">
             <div className="flex flex-col items-center">
               <span className="text-xs font-bold text-gray-400 mb-1">Matches</span>
-              <span className="text-xl font-extrabold text-gray-900">48</span>
+              <span className="text-xl font-extrabold text-gray-900">{stats.matches || 48}</span>
             </div>
             <div className="flex flex-col items-center border-x border-gray-100">
               <span className="text-xs font-bold text-gray-400 mb-1">Trophies</span>
-              <span className="text-xl font-extrabold text-gray-900">12</span>
+              <span className="text-xl font-extrabold text-gray-900">{stats.trophies || 12}</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="text-xs font-bold text-gray-400 mb-1">Rank</span>
-              <span className="text-xl font-extrabold text-gray-900">#23</span>
+              <span className="text-xl font-extrabold text-gray-900">#{stats.rank || 23}</span>
             </div>
           </div>
         </div>

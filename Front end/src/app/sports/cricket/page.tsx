@@ -26,10 +26,7 @@ export default function CricketCareerPage() {
         <span className="text-gray-500">Top Academies</span>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-8 mb-10">
-        
-        {/* Main Content Area */}
-        <div className="flex-1 space-y-8">
+      <div className="space-y-10 mb-10">
           
           {/* Hero Banner */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[32px] p-8 md:p-12 border border-blue-100 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
@@ -184,88 +181,53 @@ export default function CricketCareerPage() {
              </div>
           </div>
           
-        </div>
-
-        {/* Right Sidebar */}
-        <div className="w-full xl:w-[320px] space-y-6">
-          
-          {/* AI Assistant */}
-          <div className="bg-white rounded-3xl p-6 border border-blue-100 shadow-sm relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-indigo-50/80 z-0"></div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                  <Bot className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Cricket AI Coach <span className="text-yellow-500">✨</span></h3>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 mb-6 font-medium">Ask me about batting techniques, trial dates, or fitness.</p>
-              
-              <div className="space-y-3 mb-6">
-                <div className="bg-white border border-blue-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>How to improve bat swing?</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-blue-300 group-hover/q:text-blue-600 group-hover/q:translate-x-1 transition-all" />
-                </div>
-                <div className="bg-white border border-blue-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>When are the U-16 trials?</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-blue-300 group-hover/q:text-blue-600 group-hover/q:translate-x-1 transition-all" />
-                </div>
-              </div>
-              
-              <button className="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl shadow-md shadow-blue-200 hover:bg-blue-700 hover:-translate-y-0.5 transition-all">
-                Ask Coach &rarr;
-              </button>
+          {/* Bottom Grid: Insights & Success Stories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {/* Salary Insights */}
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+               <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
+               
+               <div className="relative border-l-2 border-indigo-100 ml-3 space-y-6">
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">Domestic Level (Ranji)</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Match Fees + Contracts</p>
+                     <p className="text-xs font-bold text-emerald-600">₹40,000 - ₹60,000 / day</p>
+                  </div>
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">IPL Player</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Auction Value + Match Fees</p>
+                     <p className="text-xs font-bold text-emerald-600">₹20 Lakhs - ₹15+ Crores</p>
+                  </div>
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">International (BCCI Contract)</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Grade A+, A, B, C Contracts</p>
+                     <p className="text-xs font-bold text-emerald-600">₹1 Cr - ₹7 Cr / Year</p>
+                  </div>
+               </div>
+            </div>
+            
+            {/* Success Story */}
+            <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
+               <div className="bg-amber-50 rounded-[22px] p-5 h-full relative overflow-hidden flex flex-col justify-center">
+                  <div className="absolute -right-4 -bottom-4 opacity-10">
+                     <Trophy className="w-24 h-24 text-amber-900" />
+                  </div>
+                  <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
+                  <div className="flex gap-4 items-center">
+                     <img src="/images/athletes/virat_kohli.jpg" alt="Virat" className="w-16 h-16 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
+                     <div>
+                        <h4 className="font-bold text-gray-900 text-[14px]">Virat Kohli</h4>
+                        <p className="text-[11px] text-gray-600 font-medium mb-1">Former India Captain</p>
+                        <p className="text-[11px] text-gray-700 leading-snug">"Self-belief and hard work will always earn you success."</p>
+                     </div>
+                  </div>
+               </div>
             </div>
           </div>
-          
-          {/* Salary Insights */}
-          <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-             <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
-             
-             <div className="relative border-l-2 border-indigo-100 ml-3 space-y-6">
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">Domestic Level (Ranji)</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">Match Fees + Contracts</p>
-                   <p className="text-xs font-bold text-emerald-600">₹40,000 - ₹60,000 / day</p>
-                </div>
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">IPL Player</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">Auction Value + Match Fees</p>
-                   <p className="text-xs font-bold text-emerald-600">₹20 Lakhs - ₹15+ Crores</p>
-                </div>
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">International (BCCI Contract)</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">Grade A+, A, B, C Contracts</p>
-                   <p className="text-xs font-bold text-emerald-600">₹1 Cr - ₹7 Cr / Year</p>
-                </div>
-             </div>
-          </div>
-          
-          {/* Success Story */}
-          <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
-             <div className="bg-amber-50 rounded-[22px] p-5 relative overflow-hidden">
-                <div className="absolute -right-4 -bottom-4 opacity-10">
-                   <Trophy className="w-24 h-24 text-amber-900" />
-                </div>
-                <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
-                <div className="flex gap-3">
-                   <img src="/images/athletes/virat_kohli.jpg" alt="Virat" className="w-14 h-14 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
-                   <div>
-                      <h4 className="font-bold text-gray-900 text-[13px]">Virat Kohli</h4>
-                      <p className="text-[10px] text-gray-600 font-medium mb-1">Former India Captain</p>
-                      <p className="text-[10px] text-gray-700 leading-snug">"Self-belief and hard work will always earn you success."</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-
         </div>
-      </div>
     </SportsLayout>
   );
 }

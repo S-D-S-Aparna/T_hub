@@ -21,6 +21,7 @@ model User {
   
   posts     Post[]
   comments  Comment[]
+  global_interests String[]
   
   // Mentor specific
   bookingsAsMentor Booking[] @relation("MentorBookings")
@@ -33,6 +34,18 @@ model User {
   supportTickets SupportTicket[]
   eventRegistrations EventRegistration[]
   mentorProfile  MentorProfile?
+  chatMessages   ChatMessage[]
+  polls          Poll[]
+  pollVotes      PollVote[]
+  notifications  Notification[]
+
+  fitnessStats   FitnessStat[]
+  dietPlans      DietPlan[]
+  athleteProfile AthleteProfile?
+  playerProfile  PlayerProfile?
+  trainingSessions TrainingSession[]
+  recoveryPlans  RecoveryPlan[]
+  achievements   Achievement[]
 }
 
 model MentorProfile {
@@ -61,6 +74,9 @@ model Post {
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id])
   comments  Comment[]
+  
+  base_content String?
+  dynamic_metadata Json?
 }
 
 model Comment {
@@ -173,4 +189,197 @@ model EventRegistration {
   createdAt DateTime @default(now())
 }
 
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  content   String
+  room      String
+  senderId  Int
+  sender    User     @relation(fields: [senderId], references: [id])
+  createdAt DateTime @default(now())
+}
 
+model Poll {
+  id        Int          @id @default(autoincrement())
+  question  String
+  category  String
+  createdAt DateTime     @default(now())
+  authorId  Int
+  author    User         @relation(fields: [authorId], references: [id])
+  options   PollOption[]
+  votes     PollVote[]
+}
+
+model PollOption {
+  id        Int        @id @default(autoincrement())
+  text      String
+  pollId    Int
+  poll      Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  votes     PollVote[]
+}
+
+model PollVote {
+  id        Int        @id @default(autoincrement())
+  pollId    Int
+  poll      Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  optionId  Int
+  option    PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  createdAt DateTime   @default(now())
+
+  @@unique([pollId, userId])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // e.g., "message", "booking", "system"
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  link      String?  // Optional URL to navigate to when clicked
+  createdAt DateTime @default(now())
+}
+
+model Academy {
+  id        Int      @id @default(autoincrement())
+  name      String
+  sport     String
+  rating    Float    @default(0.0)
+  reviews   Int      @default(0)
+  location  String
+  price     String
+  image     String?
+  createdAt DateTime @default(now())
+}
+
+model Tournament {
+  id        Int      @id @default(autoincrement())
+  title     String
+  sport     String
+  date      DateTime
+  location  String
+  prize     String?
+  status    String   @default("upcoming") // upcoming, ongoing, completed
+  image     String?
+  createdAt DateTime @default(now())
+}
+
+model SportsGround {
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  sport       String
+  hourlyRate  String
+  amenities   String[]
+  image       String?
+  rating      Float    @default(0.0)
+  createdAt   DateTime @default(now())
+}
+
+model LiveSession {
+  id          Int      @id @default(autoincrement())
+  title       String
+  coach       String
+  sport       String
+  date        DateTime
+  link        String?
+  image       String?
+  participants Int     @default(0)
+  status      String   @default("upcoming") // upcoming, live, completed
+  createdAt   DateTime @default(now())
+}
+
+model FitnessStat {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  date          DateTime @default(now())
+  steps         Int      @default(0)
+  calories      Int      @default(0)
+  activeMinutes Int      @default(0)
+  distance      Float    @default(0.0) // in km
+  createdAt     DateTime @default(now())
+}
+
+model DietPlan {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  title         String
+  goal          String
+  dailyCalories Int
+  meals         String   // JSON string
+  createdAt     DateTime @default(now())
+}
+
+model AthleteProfile {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique
+  user          User     @relation(fields: [userId], references: [id])
+  sport         String
+  skillLevel    String   // beginner, intermediate, advanced, professional
+  achievements  String   // JSON string
+  stats         String   // JSON string
+  height        String?
+  weight        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model PlayerProfile {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique
+  user          User     @relation(fields: [userId], references: [id])
+  sport         String
+  skillLevel    String
+  location      String
+  availableDays String   // JSON array of strings
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model StoreProduct {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  price       String
+  image       String?
+  rating      Float    @default(0.0)
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model TrainingSession {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  sport       String
+  date        DateTime
+  duration    Int      // in minutes
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model RecoveryPlan {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  injuryType  String
+  exercises   String   // JSON string
+  duration    String
+  progress    Int      @default(0) // percentage
+  createdAt   DateTime @default(now())
+}
+
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String
+  badgeIcon   String
+  dateEarned  DateTime @default(now())
+}

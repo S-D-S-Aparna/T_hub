@@ -21,48 +21,15 @@ const sidebarGroups = [
     ]
   },
   {
-    title: "Learn & Train",
-    links: [
-      { href: "/sports/academies", label: "Academies", icon: Building2 },
-      { href: "/sports/coaches", label: "Coaches", icon: Users },
-      { href: "/sports/live", label: "Live Coaching", icon: MonitorPlay },
-      { href: "/sports/grounds", label: "Sports Grounds", icon: MapPin },
-      { href: "/sports/players", label: "Find Players", icon: Search },
-    ]
-  },
-  {
     title: "Performance & Health",
     links: [
       { href: "/sports/fitness", label: "Fitness Tracker", icon: Activity },
-      { href: "/sports/nutrition", label: "Nutrition Planner", icon: Apple },
-      { href: "/sports/ai-analysis", label: "AI Performance Analysis", icon: Brain },
-      { href: "/sports/dashboard", label: "Performance Dashboard", icon: LayoutDashboard },
-      { href: "/sports/recovery", label: "Injury Recovery", icon: HeartPulse },
-    ]
-  },
-  {
-    title: "Compete & Grow",
-    links: [
-      { href: "/sports/tournaments", label: "Tournaments", icon: Target },
-      { href: "/sports/roadmap", label: "Career Roadmap", icon: Compass },
-      { href: "/sports/scholarships", label: "Scholarships", icon: Award },
-      { href: "/sports/achievements", label: "Achievements", icon: Medal },
-    ]
-  },
-  {
-    title: "Tools & Extras",
-    links: [
-      { href: "/sports/ai-coach", label: "Sports AI Coach", icon: Bot },
-      { href: "/sports/calendar", label: "Training Calendar", icon: Calendar },
-      { href: "/sports/store", label: "Sports Store", icon: ShoppingBag },
-      { href: "/sports/weather", label: "Weather & Air Quality", icon: CloudSun },
     ]
   }
 ];
 
 const userLinks = [
   { href: "/dashboard", label: "My Dashboard", icon: LayoutDashboard },
-  { href: "/sports/profile", label: "Athlete Profile", icon: User },
   { href: "/notifications", label: "Smart Notifications", icon: Bell },
   { href: "/saved", label: "Saved", icon: Bookmark },
   { href: "/sports/bookings", label: "My Bookings", icon: CalendarDays },

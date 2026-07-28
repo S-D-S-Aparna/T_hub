@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, CalendarDays, MapPin, Trophy, Target } from "lucide-react";
@@ -7,32 +8,22 @@ import { ChevronLeft, CalendarDays, MapPin, Trophy, Target } from "lucide-react"
 export default function TournamentsPage() {
   const tabs = ["All", "Cricket", "Football", "Badminton"];
   
-  const tournaments = [
-    {
-      id: 1,
-      name: "City Cricket League",
-      date: "20 May - 30 May 2024",
-      location: "Mumbai",
-      prize: "₹50,000",
-      image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2005&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      name: "College Football Cup",
-      date: "25 May - 8 June 2024",
-      location: "Bangalore",
-      prize: "₹75,000",
-      image: "https://images.unsplash.com/photo-1518605368461-1e1e38ce7059?q=80&w=2072&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      name: "Badminton Championship",
-      date: "10 June - 15 June 2024",
-      location: "Delhi",
-      prize: "₹25,000",
-      image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070&auto=format&fit=crop"
-    }
-  ];
+  const [tournaments, setTournaments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/tournaments')
+      .then(res => res.json())
+      .then(data => {
+        setTournaments(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load tournaments", err);
+        setLoading(false);
+      });
+  }, []);
+  
 
   return (
     <SportsLayout>
@@ -84,44 +75,48 @@ export default function TournamentsPage() {
           </div>
 
           {/* Tournament List */}
-          <div className="space-y-4">
-            {tournaments.map((tournament) => (
-              <div key={tournament.id} className="bg-white rounded-[24px] p-4 shadow-sm border border-gray-100 flex gap-4 hover:shadow-md hover:border-amber-200 transition-all group cursor-pointer">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {loading ? (
+              <p className="text-gray-500 text-sm">Loading tournaments...</p>
+            ) : tournaments.length === 0 ? (
+              <p className="text-gray-500 text-sm">No tournaments found.</p>
+            ) : tournaments.map((tournament) => (
+              <div key={tournament.id} className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:border-indigo-100 transition-all group flex flex-col cursor-pointer">
                 
-                {/* Image */}
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 relative">
-                  <img src={tournament.image} alt={tournament.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="h-40 overflow-hidden relative">
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-bold px-2 py-1 rounded-md text-gray-800 shadow-sm z-10 flex items-center gap-1 uppercase">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> {tournament.status || "upcoming"}
+                  </div>
+                  <img src={tournament.image} alt={tournament.title || tournament.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 
-                {/* Content */}
-                <div className="flex-1 flex flex-col justify-between py-0.5">
+                <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="font-bold text-gray-900 text-sm leading-tight mb-2 group-hover:text-amber-600 transition-colors">{tournament.name}</h3>
+                    <h3 className="font-bold text-gray-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors">{tournament.title || tournament.name}</h3>
                     
-                    <div className="space-y-1.5">
+                    <div className="space-y-2 mb-4">
                       <div className="flex items-center gap-2 text-[11px] font-medium text-gray-500">
-                        <CalendarDays className="w-3.5 h-3.5 text-gray-400" /> {tournament.date}
+                        <CalendarDays className="w-3.5 h-3.5 text-indigo-400" /> 
+                        {tournament.date instanceof Date ? new Date(tournament.date).toLocaleDateString() : tournament.date}
                       </div>
                       <div className="flex items-center gap-2 text-[11px] font-medium text-gray-500">
-                        <MapPin className="w-3.5 h-3.5 text-gray-400" /> {tournament.location}
+                        <MapPin className="w-3.5 h-3.5 text-red-400" /> {tournament.location}
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-50">
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Prize Pool</p>
-                      <div className="flex items-center gap-1 text-sm font-extrabold text-amber-600">
-                        <Trophy className="w-3.5 h-3.5" /> {tournament.prize}
-                      </div>
+                      <span className="block text-[10px] text-gray-400 font-medium">Prize Pool</span>
+                      <span className="font-bold text-gray-900 text-sm flex items-center gap-1">
+                        <Trophy className="w-3.5 h-3.5 text-yellow-500" /> {tournament.prize}
+                      </span>
                     </div>
-                    
-                    <button className="text-[11px] font-bold text-blue-600 hover:text-blue-800 transition-colors">
-                      Register Now
+                    <button className="bg-indigo-50 text-indigo-600 font-bold text-xs px-4 py-2 rounded-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                      Register
                     </button>
                   </div>
                 </div>
-
               </div>
             ))}
           </div>

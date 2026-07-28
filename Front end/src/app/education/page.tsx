@@ -169,7 +169,6 @@ export default function EducationHome() {
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${exam.bg} group-hover:shadow-md transition-shadow`}>{exam.icon}</div>
                       <div className="text-center">
                         <p className="text-[10px] font-bold text-gray-800">{exam.name}</p>
-                        <p className="text-[9px] font-medium text-gray-500">{exam.date}</p>
                       </div>
                    </div>
                  ))}

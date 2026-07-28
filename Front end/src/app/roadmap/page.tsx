@@ -481,30 +481,7 @@ export default function RoadmapPage() {
 
                 {/* Sidebar (Mentors & Extra Info) */}
                 <div className="space-y-6">
-                  <div className="bg-gradient-to-b from-purple-50 to-white border border-purple-100 rounded-2xl p-6 shadow-sm">
-                    <h3 className="font-bold text-gray-900 flex items-center gap-2 mb-4">
-                      <Users className="w-5 h-5 text-purple-600" /> Recommended Mentors
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-4">Connect with these experts on Be You to accelerate your journey.</p>
-                    
-                    <div className="space-y-4">
-                      {mentors.map((mentor, idx) => (
-                        <div key={idx} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold shrink-0">
-                            {mentor.name.charAt(0)}
-                          </div>
-                          <div>
-                            <div className="font-bold text-gray-900 text-sm">{mentor.name}</div>
-                            <div className="text-xs text-gray-500 mb-1">{mentor.role}</div>
-                            <div className="text-xs text-purple-600 bg-purple-50 px-2 py-0.5 rounded inline-block">{mentor.expertise.split(',')[0]}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <Link href="/mentors" className="mt-4 w-full bg-white border border-purple-200 text-purple-700 py-2 rounded-lg text-sm font-medium hover:bg-purple-50 transition-colors flex items-center justify-center gap-1 print:hidden">
-                      View Mentor Hub <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+
 
                   <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-2xl text-sm text-blue-900">
                     <h4 className="font-bold flex items-center gap-2 mb-2"><Link2 className="w-4 h-4" /> Pro Tip</h4>

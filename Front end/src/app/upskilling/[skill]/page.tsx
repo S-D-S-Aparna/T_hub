@@ -154,10 +154,7 @@ export default function SkillDetail() {
           <span className={`text-gray-800 font-medium border-b-2 border-${data.theme}-500 pb-0.5`}>{data.title}</span>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-8 mb-10">
-          
-          {/* Main Content */}
-          <div className="flex-1 space-y-8">
+        <div className="space-y-10 mb-10">
             
             {/* Hero Banner */}
             <div className={`bg-gradient-to-r from-white to-${data.theme}-50 rounded-[32px] p-8 md:p-12 border ${t.border} relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm`}>
@@ -306,48 +303,12 @@ export default function SkillDetail() {
                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
                   </div>
                </div>
-            </div>
-            
           </div>
-
-          {/* Right Sidebar */}
-          <div className="w-full xl:w-[320px] space-y-6">
-            
-            {/* AI Assistant */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative overflow-hidden group">
-              <div className={`absolute inset-0 bg-gradient-to-br from-${data.theme}-50/80 to-blue-50/80 z-0`}></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                    <Bot className={`w-6 h-6 ${t.text}`} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Be You AI Mentor <span className="text-yellow-500">✨</span></h3>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mb-6 font-medium">Your personalized career coach for {data.title}.</p>
-                
-                <div className="space-y-3 mb-6">
-                  <p className={`text-[11px] font-bold ${t.text} uppercase tracking-wider`}>Try asking me...</p>
-                  {[
-                    `How long to learn ${data.title}?`,
-                    "Is it too late to switch?",
-                    "Best portfolio projects?"
-                  ].map((q, i) => (
-                    <button key={i} className={`w-full text-left text-xs bg-white px-4 py-2.5 rounded-xl border border-${data.theme}-100 text-gray-700 font-medium hover:${t.bgLight} hover:${t.text} transition-colors shadow-sm`}>
-                      &quot;{q}&quot;
-                    </button>
-                  ))}
-                </div>
-                
-                <button className={`w-full ${t.bg} text-white py-3 rounded-xl font-bold hover:opacity-90 transition-opacity shadow-md flex items-center justify-center gap-2`}>
-                  <Bot className="w-4 h-4" /> Start Coaching
-                </button>
-              </div>
-            </div>
-
+          
+          {/* Bottom Grid: Insights & Success Stories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             {/* Switch Career Stats */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm h-full">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-bold text-gray-900 flex items-center gap-2">
                   <Briefcase className={`w-5 h-5 ${t.text}`} /> Career Switch Stats
@@ -373,11 +334,11 @@ export default function SkillDetail() {
             </div>
 
             {/* Legendary Inspiration */}
-            <div className="bg-[#0f172a] rounded-3xl p-6 relative overflow-hidden group">
+            <div className="bg-[#0f172a] rounded-3xl p-6 relative overflow-hidden group h-full flex flex-col justify-between">
                <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
                <div className={`absolute -right-10 -top-10 w-32 h-32 ${t.bg} opacity-30 rounded-full blur-[40px] group-hover:opacity-40 transition-opacity`}></div>
                
-               <div className="relative z-10">
+               <div className="relative z-10 flex flex-col h-full">
                  <div className="flex items-center gap-2 mb-4">
                    <div className={`w-8 h-8 rounded-lg ${t.bg} bg-opacity-20 flex items-center justify-center`}>
                      <Star className={`w-4 h-4 ${t.text} brightness-150`} />
@@ -385,7 +346,7 @@ export default function SkillDetail() {
                    <h3 className="font-bold text-white tracking-wide text-sm uppercase">Success Story</h3>
                  </div>
                  
-                 <div className="mb-6">
+                 <div className="mb-6 flex-1 flex flex-col justify-center">
                    <h4 className="text-white font-bold text-lg leading-tight mb-1">{data.successName}</h4>
                    <p className="text-gray-400 text-xs font-medium mb-3">{data.successDesc}</p>
                    <p className={`text-gray-300 text-xs leading-relaxed italic border-l-2 border-${data.theme}-500 pl-3`}>
@@ -393,13 +354,13 @@ export default function SkillDetail() {
                    </p>
                  </div>
                  
-                 <button className="w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2.5 rounded-xl backdrop-blur-md transition-all border border-white/10">
+                 <button className="w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2.5 rounded-xl backdrop-blur-md transition-all border border-white/10 mt-auto">
                    Read Full Story
                  </button>
                </div>
             </div>
-
           </div>
+
         </div>
       </div>
     </MainLayout>

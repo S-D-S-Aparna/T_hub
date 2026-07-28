@@ -1,10 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Mic, Video, PhoneOff, Send, MessageSquare, Play } from "lucide-react";
 
 export default function LiveCoachingPage() {
+  const [sessions, setSessions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/live-sessions')
+      .then(res => res.json())
+      .then(data => {
+        setSessions(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch sessions", err);
+        setLoading(false);
+      });
+  }, []);
   return (
     <SportsLayout>
       <div className="max-w-5xl mx-auto pb-20">
@@ -96,31 +112,24 @@ export default function LiveCoachingPage() {
           <h2 className="text-sm font-bold text-gray-900 mb-4">Upcoming Sessions</h2>
           
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-indigo-100 hover:bg-indigo-50/50 cursor-pointer transition-colors">
-               <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-xl overflow-hidden relative">
-                   <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover" alt="Strength" />
+            {loading ? (
+              <p className="text-gray-500 text-sm">Loading sessions...</p>
+            ) : sessions.length === 0 ? (
+              <p className="text-gray-500 text-sm">No upcoming sessions.</p>
+            ) : sessions.map((session) => (
+              <div key={session.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-indigo-100 hover:bg-indigo-50/50 cursor-pointer transition-colors">
+                 <div className="flex items-center gap-3">
+                   <div className="w-10 h-10 rounded-xl overflow-hidden relative">
+                     <img src={session.image || "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"} className="w-full h-full object-cover" alt={session.sport} />
+                   </div>
+                   <div>
+                     <h3 className="text-xs font-bold text-gray-900 group-hover:text-indigo-700">{session.title}</h3>
+                     <p className="text-[10px] text-gray-500 font-medium">{new Date(session.date).toLocaleString()} • {session.coach}</p>
+                   </div>
                  </div>
-                 <div>
-                   <h3 className="text-xs font-bold text-gray-900 group-hover:text-indigo-700">Strength Training</h3>
-                   <p className="text-[10px] text-gray-500 font-medium">Today, 6:00 PM</p>
-                 </div>
-               </div>
-               <button className="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-3 py-1.5 rounded-lg hover:bg-indigo-200 transition-colors">Book</button>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-indigo-100 hover:bg-indigo-50/50 cursor-pointer transition-colors">
-               <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-xl overflow-hidden relative">
-                   <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2020&auto=format&fit=crop" className="w-full h-full object-cover" alt="Yoga" />
-                 </div>
-                 <div>
-                   <h3 className="text-xs font-bold text-gray-900 group-hover:text-indigo-700">Yoga for Athletes</h3>
-                   <p className="text-[10px] text-gray-500 font-medium">Tomorrow, 7:00 AM</p>
-                 </div>
-               </div>
-               <button className="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-3 py-1.5 rounded-lg hover:bg-indigo-200 transition-colors">Book</button>
-            </div>
+                 <button className="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-3 py-1.5 rounded-lg hover:bg-indigo-200 transition-colors">Book</button>
+              </div>
+            ))}
           </div>
         </div>
 

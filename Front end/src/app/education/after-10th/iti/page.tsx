@@ -31,10 +31,7 @@ export default function ITICourses() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6 mb-10">
-        
-        {/* Main Content Area */}
-        <div className="flex-1 space-y-8">
+      <div className="space-y-10 mb-10">
            {/* Hero Banner */}
            <div className="bg-indigo-50/50 rounded-3xl p-6 md:p-8 border border-indigo-100 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
              <div className="absolute right-0 top-0 w-64 h-64 bg-indigo-200 rounded-full blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2"></div>
@@ -370,10 +367,9 @@ export default function ITICourses() {
              {/* Background pattern */}
              <div className="absolute right-0 top-0 w-64 h-64 bg-indigo-600 rounded-full blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
            </div>
-        </div>
-        
-        {/* Right Sidebar */}
-        <div className="w-full lg:w-[320px] space-y-6">
+
+          {/* Bottom Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {/* AI Assistant */}
           <div className="bg-white rounded-3xl p-6 border border-indigo-100 shadow-sm relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/80 to-purple-50/80 z-0"></div>

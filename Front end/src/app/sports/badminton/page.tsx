@@ -26,10 +26,7 @@ export default function BadmintonCareerPage() {
         <span className="text-gray-500">Top Academies</span>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-8 mb-10">
-        
-        {/* Main Content Area */}
-        <div className="flex-1 space-y-8">
+      <div className="space-y-10 mb-10">
           
           {/* Hero Banner */}
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-[32px] p-8 md:p-12 border border-green-100 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
@@ -181,89 +178,54 @@ export default function BadmintonCareerPage() {
                       <p className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> Hydration with electrolytes to prevent cramping.</p>
                    </div>
                 </div>
-             </div>
-          </div>
-          
-        </div>
-
-        {/* Right Sidebar */}
-        <div className="w-full xl:w-[320px] space-y-6">
-          
-          {/* AI Assistant */}
-          <div className="bg-white rounded-3xl p-6 border border-green-100 shadow-sm relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-green-50/80 to-emerald-50/80 z-0"></div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                  <Bot className="w-6 h-6 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Badminton AI Coach <span className="text-yellow-500">✨</span></h3>
-                </div>
               </div>
-              <p className="text-sm text-gray-600 mb-6 font-medium">Ask me about footwork drills, racket tension, or tournaments.</p>
-              
-              <div className="space-y-3 mb-6">
-                <div className="bg-white border border-green-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-green-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>How to improve my jump smash?</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-green-300 group-hover/q:text-green-600 group-hover/q:translate-x-1 transition-all" />
-                </div>
-                <div className="bg-white border border-green-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-green-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>Best racket for defensive play?</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-green-300 group-hover/q:text-green-600 group-hover/q:translate-x-1 transition-all" />
-                </div>
-              </div>
-              
-              <button className="w-full bg-green-600 text-white font-bold py-3.5 rounded-xl shadow-md shadow-green-200 hover:bg-green-700 hover:-translate-y-0.5 transition-all">
-                Ask Coach &rarr;
-              </button>
+          
+          {/* Bottom Grid: Insights & Success Stories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {/* Salary Insights */}
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+               <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
+               
+               <div className="relative border-l-2 border-emerald-100 ml-3 space-y-6">
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-emerald-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">Domestic Tournaments</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Prize Money + State Grants</p>
+                     <p className="text-xs font-bold text-emerald-600">₹2 Lakhs - ₹10 Lakhs / Year</p>
+                  </div>
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-emerald-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">PBL (Premier Badminton League)</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Auction Value</p>
+                     <p className="text-xs font-bold text-emerald-600">₹10 Lakhs - ₹80+ Lakhs</p>
+                  </div>
+                  <div className="relative pl-5">
+                     <div className="absolute w-3 h-3 bg-emerald-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
+                     <h4 className="font-bold text-gray-900 text-sm">International (BWF + Sponsorships)</h4>
+                     <p className="text-[11px] text-gray-500 mb-1">Tournament Wins + Brand Deals</p>
+                     <p className="text-xs font-bold text-emerald-600">₹1 Cr - ₹15+ Cr / Year</p>
+                  </div>
+               </div>
+            </div>
+            
+            {/* Success Story */}
+            <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
+               <div className="bg-amber-50 rounded-[22px] p-5 h-full relative overflow-hidden flex flex-col justify-center">
+                  <div className="absolute -right-4 -bottom-4 opacity-10">
+                     <Trophy className="w-24 h-24 text-amber-900" />
+                  </div>
+                  <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
+                  <div className="flex gap-4 items-center">
+                     <img src="/images/athletes/pv_sindhu.jpg" alt="PV Sindhu" className="w-16 h-16 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
+                     <div>
+                        <h4 className="font-bold text-gray-900 text-[14px]">P.V. Sindhu</h4>
+                        <p className="text-[11px] text-gray-600 font-medium mb-1">Double Olympic Medalist</p>
+                        <p className="text-[11px] text-gray-700 leading-snug">"Your dreams are what define your individuality. They have the power to give you wings."</p>
+                     </div>
+                  </div>
+               </div>
             </div>
           </div>
-          
-          {/* Salary Insights */}
-          <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-             <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
-             
-             <div className="relative border-l-2 border-teal-100 ml-3 space-y-6">
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-teal-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">Domestic Level (State/National)</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">PSU Jobs (Oil India, Railways, etc.)</p>
-                   <p className="text-xs font-bold text-emerald-600">₹40,000 - ₹80,000 / month</p>
-                </div>
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-teal-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">Premier Badminton League (PBL)</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">Franchise Contracts</p>
-                   <p className="text-xs font-bold text-emerald-600">₹10 Lakhs - ₹80 Lakhs / season</p>
-                </div>
-                <div className="relative pl-5">
-                   <div className="absolute w-3 h-3 bg-teal-500 rounded-full -left-[7px] top-1.5 border-2 border-white"></div>
-                   <h4 className="font-bold text-gray-900 text-sm">BWF World Tour</h4>
-                   <p className="text-[11px] text-gray-500 mb-1">Prize Money + Brand Endorsements</p>
-                   <p className="text-xs font-bold text-emerald-600">₹1 Cr - ₹50+ Cr / Year</p>
-                </div>
-             </div>
-          </div>
-          
-          {/* Success Story */}
-          <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
-             <div className="bg-amber-50 rounded-[22px] p-5 relative overflow-hidden">
-                <div className="absolute -right-4 -bottom-4 opacity-10">
-                   <Medal className="w-24 h-24 text-amber-900" />
-                </div>
-                <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
-                <div className="flex gap-3">
-                   <img src="/images/athletes/pv_sindhu.jpg" alt="PV Sindhu" className="w-14 h-14 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
-                   <div>
-                      <h4 className="font-bold text-gray-900 text-[13px]">P. V. Sindhu</h4>
-                      <p className="text-[10px] text-gray-600 font-medium mb-1">Double Olympic Medalist</p>
-                      <p className="text-[10px] text-gray-700 leading-snug">"The hardest battles are given to the strongest soldiers."</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-
         </div>
       </div>
     </SportsLayout>

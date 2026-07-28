@@ -1,46 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Search, ShoppingBag, Star, Heart, ShoppingCart } from "lucide-react";
 
 export default function SportsStorePage() {
   const categories = ["All", "Shoes", "Cricket Bats", "Apparel", "Accessories"];
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/store')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
   
-  const products = [
-    {
-      id: 1,
-      name: "Pro Sprint X-1",
-      category: "Shoes",
-      price: "₹3,999",
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      name: "Master Stroke Willow",
-      category: "Cricket Bats",
-      price: "₹8,500",
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1593766827228-8737b4534aa6?q=80&w=1956&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      name: "Aero-Fit Jersey",
-      category: "Apparel",
-      price: "₹1,299",
-      rating: 4.6,
-      image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?q=80&w=1974&auto=format&fit=crop"
-    },
-    {
-      id: 4,
-      name: "Pro Grip Gloves",
-      category: "Accessories",
-      price: "₹899",
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop"
-    }
-  ];
+
 
   return (
     <SportsLayout>
@@ -112,31 +95,32 @@ export default function SportsStorePage() {
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {products.map((product) => (
-            <div key={product.id} className="bg-white rounded-[24px] p-3 shadow-sm border border-gray-100 group relative">
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {loading ? <p className="text-gray-500 text-sm">Loading products...</p> : products.map((product) => (
+            <div key={product.id} className="bg-white rounded-3xl p-3 shadow-sm border border-gray-100 group hover:shadow-md hover:border-indigo-200 transition-all cursor-pointer relative">
               
-              <button className="absolute top-4 right-4 z-10 w-7 h-7 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white transition-colors">
+              <button className="absolute top-4 right-4 z-10 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-white transition-colors">
                 <Heart className="w-4 h-4" />
               </button>
-              
-              <div className="w-full aspect-square rounded-2xl overflow-hidden mb-3 bg-gray-50">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+
+              <div className="w-full aspect-square rounded-2xl overflow-hidden mb-4 bg-gray-50 relative group-hover:bg-indigo-50/30 transition-colors">
+                <img src={product.image} alt={product.name} className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500" />
               </div>
+
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">{product.category}</p>
+              <h3 className="font-bold text-gray-900 text-sm mb-1 leading-tight group-hover:text-indigo-700 transition-colors line-clamp-1">{product.name}</h3>
               
-              <div className="px-1">
-                <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-wide">
-                  {product.category}
-                </div>
-                <h3 className="font-bold text-gray-900 text-sm leading-tight mb-2 line-clamp-1">{product.name}</h3>
-                
-                <div className="flex items-center justify-between">
-                  <span className="font-extrabold text-gray-900">{product.price}</span>
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-gray-600 bg-gray-50 px-1.5 py-0.5 rounded-md">
-                    <Star className="w-3 h-3 text-yellow-500 fill-current" /> {product.rating}
-                  </div>
-                </div>
+              <div className="flex items-center gap-1 mb-3">
+                <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                <span className="text-[10px] font-bold text-gray-600">{product.rating}</span>
+              </div>
+
+              <div className="flex items-center justify-between border-t border-gray-50 pt-3">
+                <span className="font-extrabold text-gray-900">{product.price}</span>
+                <button className="w-8 h-8 bg-gray-900 text-white rounded-xl flex items-center justify-center hover:bg-indigo-600 transition-colors shadow-sm">
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                </button>
               </div>
 
             </div>

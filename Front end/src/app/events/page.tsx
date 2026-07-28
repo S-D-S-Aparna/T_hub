@@ -20,8 +20,10 @@ interface Event {
 
 export default function Events() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState<number | null>(null);
+  const [filter, setFilter] = useState('All');
   const { user } = useAuth();
   const router = useRouter();
 
@@ -72,6 +74,7 @@ export default function Events() {
       .then(res => res.json())
       .then(data => {
         setEvents(data.events || []);
+        setFilteredEvents(data.events || []);
         setLoading(false);
       })
       .catch(err => {
@@ -80,16 +83,24 @@ export default function Events() {
       });
   }, []);
 
+  useEffect(() => {
+    if (filter === 'All') {
+      setFilteredEvents(events);
+    } else {
+      setFilteredEvents(events.filter(e => e.type.toLowerCase().includes(filter.toLowerCase()) || e.type.replace('_', ' ').toLowerCase() === filter.toLowerCase()));
+    }
+  }, [filter, events]);
+
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto">
         <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-8 text-white mb-8 shadow-xl relative overflow-hidden">
           <div className="relative z-10">
             <h1 className="text-3xl font-bold mb-2 flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-orange-200" /> Events & Webinars
+              <Calendar className="w-8 h-8 text-orange-200" /> Events & Masterclasses
             </h1>
             <p className="text-orange-50 max-w-lg text-sm mb-6">
-              Join live webinars, career fairs, and networking events to boost your professional connections.
+              Join live webinars, masterclasses, career fairs, and networking events to boost your professional connections.
             </p>
             <div className="relative flex-1 max-w-lg">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -101,11 +112,26 @@ export default function Events() {
           </div>
         </div>
 
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {['All', 'Masterclass', 'Webinar', 'Workshop', 'Career Fair'].map(type => (
+            <button
+              key={type}
+              onClick={() => setFilter(type)}
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+                filter === type ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:bg-orange-50'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <div className="text-center py-10"><p className="text-gray-500 animate-pulse">Loading events...</p></div>
-        ) : events.length > 0 ? (
+        ) : filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {events.map(event => (
+            {filteredEvents.map(event => (
               <div key={event.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="font-bold text-gray-800 text-lg leading-tight">{event.title}</h3>

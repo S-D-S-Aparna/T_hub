@@ -10,27 +10,12 @@ import {
 
 const mainLinks = [
   { href: "/competitive-exams", label: "Competitive Home", icon: Home },
-  { href: "/competitive-exams/all", label: "All Exams", icon: BookOpen },
-  { href: "/competitive-exams/categories", label: "Exam Categories", icon: Layers },
-  { href: "/competitive-exams/mock-tests", label: "Mock Tests", icon: CheckSquare },
-  { href: "/competitive-exams/planner", label: "Study Planner", icon: Calendar },
-  { href: "/competitive-exams/current-affairs", label: "Current Affairs", icon: Newspaper },
-  { href: "/competitive-exams/books", label: "Books & Notes", icon: BookMarked },
-  { href: "/competitive-exams/live", label: "Live Classes", icon: MonitorPlay },
-  { href: "/competitive-exams/institutes", label: "Coaching Institutes", icon: Building2 },
-  { href: "/competitive-exams/mentors", label: "Mentors", icon: Users },
-  { href: "/competitive-exams/alerts", label: "Exam Alerts", icon: Bell },
-  { href: "/competitive-exams/rank-predictor", label: "Rank Predictor", icon: TrendingUp },
-  { href: "/competitive-exams/scholarships", label: "Scholarships", icon: Award },
-  { href: "/competitive-exams/success-stories", label: "Success Stories", icon: Star },
   { href: "/community", label: "Community", icon: MessageSquare },
 ];
 
 const userLinks = [
   { href: "/dashboard", label: "My Dashboard", icon: Home },
   { href: "/saved", label: "Saved", icon: Bookmark },
-  { href: "/competitive-exams/bookings", label: "My Bookings", icon: CalendarDays },
-  { href: "/competitive-exams/certificates", label: "Certificates", icon: CertIcon },
   { href: "/support", label: "Help & Support", icon: HelpCircle },
 ];
 

@@ -1,36 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Search, MapPin, Map as MapIcon, Star } from "lucide-react";
 
 export default function SportsGroundsPage() {
-  const grounds = [
-    {
-      id: 1,
-      name: "Play All Arena",
-      sports: "Football, Cricket",
-      distance: "2.5 km",
-      price: "₹800",
-      image: "https://images.unsplash.com/photo-1518602164578-cd0074062767?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      name: "Victory Sports Complex",
-      sports: "Badminton, Basketball",
-      distance: "3.2 km",
-      price: "₹600",
-      image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      name: "Green Field Stadium",
-      sports: "Cricket, Football",
-      distance: "5.1 km",
-      price: "₹1200",
-      image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2005&auto=format&fit=crop"
-    }
-  ];
+  const [grounds, setGrounds] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/grounds')
+      .then(res => res.json())
+      .then(data => {
+        setGrounds(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load grounds", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <SportsLayout>
@@ -88,29 +78,36 @@ export default function SportsGroundsPage() {
         </div>
 
         {/* Grounds List */}
-        <div className="space-y-4">
-          {grounds.map((ground) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {loading ? (
+              <p className="text-gray-500 text-sm">Loading sports grounds...</p>
+            ) : grounds.length === 0 ? (
+              <p className="text-gray-500 text-sm">No sports grounds found.</p>
+            ) : grounds.map((ground) => (
             <div key={ground.id} className="bg-white rounded-[24px] p-3 shadow-sm border border-gray-100 flex gap-3 hover:shadow-md hover:border-emerald-200 transition-all group cursor-pointer">
               
               <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 relative">
                 <img src={ground.image} alt={ground.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               
-              <div className="flex-1 flex flex-col justify-between py-1 pr-1">
-                <div>
-                  <div className="flex items-start justify-between mb-1">
-                     <h3 className="font-bold text-gray-900 text-sm leading-tight group-hover:text-emerald-600 transition-colors">{ground.name}</h3>
-                     <span className="text-xs font-bold text-gray-900">{ground.price} <span className="text-[10px] text-gray-400 font-medium">/ hr</span></span>
-                  </div>
-                  <p className="text-[11px] text-gray-500 font-medium">{ground.sports}</p>
-                </div>
-                
-                <div className="flex items-center justify-between mt-1">
-                  <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
-                    <MapPin className="w-3 h-3" /> {ground.distance}
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-1">
+                      <h3 className="font-bold text-gray-900 leading-tight group-hover:text-emerald-600 transition-colors">{ground.name}</h3>
+                      <div className="flex items-center gap-1 bg-yellow-50 px-1.5 py-0.5 rounded text-[10px] font-bold text-yellow-700">
+                        <Star className="w-3 h-3 fill-current" /> {ground.rating || 4.5}
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-gray-500 font-medium mb-3">{ground.sport || ground.sports}</p>
+                    
+                    <div className="flex items-center gap-2 text-[11px] font-medium text-gray-500 mb-4">
+                      <MapPin className="w-3.5 h-3.5 text-emerald-400" /> {ground.location} • {ground.distance || "5 km"}
+                    </div>
                   </div>
                   
-                  <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm">
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-50">
+                    <span className="font-bold text-gray-900 text-sm">{ground.hourlyRate || ground.price}<span className="text-[10px] text-gray-400 font-medium">/hr</span></span>
+                    <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm">
                     Book
                   </button>
                 </div>

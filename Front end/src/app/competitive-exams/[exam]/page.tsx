@@ -212,10 +212,7 @@ export default function DynamicExamCategoryPage() {
         <span className="text-gray-500">Preparation Roadmap</span>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-8 mb-10">
-        
-        {/* Main Content Area */}
-        <div className="flex-1 space-y-8">
+      <div className="space-y-10 mb-10">
           
           {/* Hero Banner */}
           <div className={`bg-gradient-to-r ${t.gradFrom} ${t.gradTo} rounded-[32px] p-8 md:p-12 border ${t.border} relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm`}>
@@ -355,76 +352,43 @@ export default function DynamicExamCategoryPage() {
              </div>
           </div>
           
-        </div>
-
-        {/* Right Sidebar */}
-        <div className="w-full xl:w-[320px] space-y-6">
-          
-          {/* AI Assistant */}
-          <div className={`bg-white rounded-3xl p-6 border ${t.border} shadow-sm relative overflow-hidden group`}>
-            <div className={`absolute inset-0 bg-gradient-to-br ${t.gradFrom} to-white z-0 opacity-80`}></div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                  <Bot className={`w-6 h-6 ${t.text}`} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">AI Mentor <span className="text-yellow-500">✨</span></h3>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600 mb-6 font-medium">Ask me about syllabus, cut-offs, strategy or eligibility for {data.title}.</p>
-              
-              <div className="space-y-3 mb-6">
-                {data.aiQueries.map((q: string, i: number) => (
-                  <div key={i} className={`bg-white border border-${data.theme}-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-${data.theme}-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q`}>
-                    <span>{q}</span>
-                    <ArrowRight className={`w-3.5 h-3.5 text-${data.theme}-300 group-hover/q:${t.text} group-hover/q:translate-x-1 transition-all`} />
+          {/* Bottom Grid: Insights & Success Stories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            {/* Salary Insights */}
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+               <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
+               
+               <div className={`relative border-l-2 border-${data.theme}-100 ml-3 space-y-6`}>
+                  {data.salary.map((sal: any, i: number) => (
+                    <div key={i} className="relative pl-5">
+                       <div className={`absolute w-3 h-3 ${t.bg} rounded-full -left-[7px] top-1.5 border-2 border-white`}></div>
+                       <h4 className="font-bold text-gray-900 text-sm">{sal.level}</h4>
+                       <p className="text-[11px] text-gray-500 mb-1">{sal.desc}</p>
+                       <p className={`text-xs font-bold ${t.text}`}>{sal.amt}</p>
+                    </div>
+                  ))}
+               </div>
+            </div>
+            
+            {/* Success Story */}
+            <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
+               <div className="bg-amber-50 rounded-[22px] p-5 h-full relative overflow-hidden flex flex-col justify-center">
+                  <div className="absolute -right-4 -bottom-4 opacity-10">
+                     <Medal className="w-24 h-24 text-amber-900" />
                   </div>
-                ))}
-              </div>
-              
-              <button className={`w-full ${t.bg} text-white font-bold py-3.5 rounded-xl shadow-md shadow-${data.theme}-200 ${t.bgHover} hover:-translate-y-0.5 transition-all`}>
-                Ask Mentor &rarr;
-              </button>
+                  <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
+                  <div className="flex gap-4 items-center">
+                     <img src={data.successImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.successName}&style=circle`} alt={data.successName} className="w-16 h-16 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
+                     <div>
+                        <h4 className="font-bold text-gray-900 text-[14px]">{data.successName}</h4>
+                        <p className="text-[11px] text-gray-600 font-medium mb-1">{data.successDesc}</p>
+                        <p className="text-[11px] text-gray-700 leading-snug">"{data.successQuote}"</p>
+                     </div>
+                  </div>
+               </div>
             </div>
           </div>
-          
-          {/* Salary Insights */}
-          <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-             <h3 className="font-bold text-gray-900 mb-5">Earnings & Salary Insights</h3>
-             
-             <div className={`relative border-l-2 border-${data.theme}-100 ml-3 space-y-6`}>
-                {data.salary.map((sal: any, i: number) => (
-                  <div key={i} className="relative pl-5">
-                     <div className={`absolute w-3 h-3 ${t.bg} rounded-full -left-[7px] top-1.5 border-2 border-white`}></div>
-                     <h4 className="font-bold text-gray-900 text-sm">{sal.level}</h4>
-                     <p className="text-[11px] text-gray-500 mb-1">{sal.desc}</p>
-                     <p className={`text-xs font-bold ${t.text}`}>{sal.amt}</p>
-                  </div>
-                ))}
-             </div>
-          </div>
-          
-          {/* Success Story */}
-          <div className="bg-white rounded-3xl p-1 border border-amber-200 shadow-sm overflow-hidden group cursor-pointer">
-             <div className="bg-amber-50 rounded-[22px] p-5 relative overflow-hidden">
-                <div className="absolute -right-4 -bottom-4 opacity-10">
-                   <Medal className="w-24 h-24 text-amber-900" />
-                </div>
-                <h3 className="font-bold text-amber-900 text-sm mb-4">Legendary Inspiration</h3>
-                <div className="flex gap-3">
-                   <img src={data.successImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.successName}&style=circle`} alt={data.successName} className="w-14 h-14 bg-white rounded-full shadow-sm border-2 border-white object-cover" />
-                   <div>
-                      <h4 className="font-bold text-gray-900 text-[13px]">{data.successName}</h4>
-                      <p className="text-[10px] text-gray-600 font-medium mb-1">{data.successDesc}</p>
-                      <p className="text-[10px] text-gray-700 leading-snug">"{data.successQuote}"</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-
         </div>
-      </div>
     </CompetitiveLayout>
   );
 }

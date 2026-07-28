@@ -44,10 +44,7 @@ export default function UpskillingHome() {
           <span className="text-gray-500">Growth</span>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-8 mb-10">
-          
-          {/* Main Content Area */}
-          <div className="flex-1 space-y-8">
+        <div className="space-y-10 mb-10">
             
             {/* Hero Banner */}
             <div className="bg-gradient-to-r from-[#f0f9ff] to-[#e0f2fe] rounded-[32px] p-8 md:p-12 border border-sky-50 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
@@ -80,7 +77,7 @@ export default function UpskillingHome() {
             </div>
 
             {/* Categories Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
               {[
                 { title: "Agentic AI", desc: "LLMs, LangChain.", options: "The New Meta", color: "bg-[#8b5cf6]", icon: "🤖", href: "/upskilling/agentic-ai" },
                 { title: "Cloud", desc: "AWS, Azure, GCP.", options: "Infrastructure", color: "bg-[#0ea5e9]", icon: "☁️", href: "/upskilling/cloud-computing" },
@@ -88,7 +85,7 @@ export default function UpskillingHome() {
                 { title: "Cybersecurity", desc: "Pen Testing, InfoSec.", options: "Protect Systems", color: "bg-[#ef4444]", icon: "🛡️", href: "/upskilling/cybersecurity" },
                 { title: "Full Stack", desc: "Next.js, React, Node.", options: "Build the Web", color: "bg-[#f59e0b]", icon: "💻", href: "/upskilling/full-stack" }
               ].map((cat, i) => (
-                <Link href={cat.href} key={i} className="group flex flex-col h-full bg-white rounded-2xl p-4 border border-gray-100 hover:shadow-xl hover:shadow-gray-200/40 hover:-translate-y-1 transition-all relative overflow-hidden">
+                <Link href={cat.href} key={i} className="group flex flex-col h-full bg-white rounded-[32px] p-4 border border-gray-100 hover:shadow-xl hover:shadow-gray-200/40 hover:-translate-y-1 transition-all relative overflow-hidden">
                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-gray-50 rounded-full group-hover:scale-[3] transition-transform duration-500 ease-out -z-10"></div>
                    <div className="z-10 flex flex-col h-full">
                      <div className={`w-10 h-10 ${cat.color} rounded-xl flex items-center justify-center text-white mb-3 shadow-sm transform group-hover:scale-110 transition-transform`}>
@@ -184,119 +181,82 @@ export default function UpskillingHome() {
                   </div>
                 </div>
               </div>
+            </div>
               
-              {/* Certification Map Placeholder */}
-              <div className="mt-8 col-span-1 md:col-span-2">
-                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                    <Award className="w-6 h-6 text-sky-500" /> Top Certifications Centers Near You
-                 </h2>
-                 <div className="bg-white rounded-[24px] p-2 border border-gray-100 shadow-sm overflow-hidden h-[400px]">
-                    <iframe 
-                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15226.772596541607!2d78.43163351984242!3d17.426462719588267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sAWS%20certification%20centers!5e0!3m2!1sen!2sin!4v1715694218654!5m2!1sen!2sin" 
-                      width="100%" 
-                      height="100%" 
-                      style={{ border: 0, borderRadius: '16px' }} 
-                      allowFullScreen={true} 
-                      loading="lazy" 
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                 </div>
-              </div>
-              
-            </div>
-
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="w-full xl:w-[320px] space-y-6">
-            
-            {/* AI Assistant */}
-            <div className="bg-white rounded-3xl p-6 border border-sky-100 shadow-sm relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-50/80 to-blue-50/80 z-0"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                    <Bot className="w-6 h-6 text-sky-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Be You AI Mentor <span className="text-yellow-500">✨</span></h3>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mb-6 font-medium">Your smart guide for navigating tech careers, choosing the right stack, and acing interviews.</p>
-                
-                <div className="space-y-3 mb-6">
-                  <p className="text-[11px] font-bold text-sky-500 uppercase tracking-wider">Try asking me...</p>
-                  {[
-                    "How to become an AI Engineer?",
-                    "Best certifications for Cloud?",
-                    "MERN stack vs Next.js?"
-                  ].map((q, i) => (
-                    <button key={i} className="w-full text-left text-xs bg-white px-4 py-2.5 rounded-xl border border-sky-100 text-gray-700 font-medium hover:bg-sky-50 hover:text-sky-600 transition-colors shadow-sm">
-                      "{q}"
-                    </button>
-                  ))}
-                </div>
-                
-                <button className="w-full bg-sky-500 text-white py-3 rounded-xl font-bold hover:bg-sky-600 transition-colors shadow-md shadow-sky-200/50 flex items-center justify-center gap-2">
-                  <Bot className="w-4 h-4" /> Start Tech Chat
-                </button>
-              </div>
-            </div>
-
-            {/* Expected Salary Tracker */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-emerald-500" /> Tech Salary Insights
-                </h3>
-              </div>
-              <div className="space-y-4">
-                {[
-                  { label: "AI/ML Engineer", avg: "₹15L - ₹35L", color: "text-purple-600", bg: "bg-purple-50" },
-                  { label: "Cloud Architect", avg: "₹18L - ₹40L", color: "text-sky-600", bg: "bg-sky-50" },
-                  { label: "Full Stack Dev", avg: "₹8L - ₹25L", color: "text-orange-600", bg: "bg-orange-50" },
-                ].map((stat, i) => (
-                  <div key={i} className="flex flex-col gap-1 pb-4 border-b border-gray-50 last:border-0 last:pb-0">
-                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</span>
-                    <span className={`text-xl font-bold ${stat.color} flex items-center gap-1`}>
-                      {stat.avg} <span className="text-[10px] text-gray-400 font-medium">/ year</span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <button className="w-full mt-4 py-2.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-colors">
-                View Detailed Trends
-              </button>
-            </div>
-
-            {/* Legendary Inspiration */}
-            <div className="bg-[#0f172a] rounded-3xl p-6 relative overflow-hidden group">
-               <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-               <div className="absolute -right-10 -top-10 w-32 h-32 bg-sky-500/30 rounded-full blur-[40px] group-hover:bg-sky-400/40 transition-colors"></div>
-               
-               <div className="relative z-10">
-                 <div className="flex items-center gap-2 mb-4">
-                   <div className="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center">
-                     <Star className="w-4 h-4 text-sky-400" />
+            {/* Bottom Grid: Map + Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
+                   <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                      <Award className="w-6 h-6 text-sky-500" /> Top Certifications Centers Near You
+                   </h2>
+                   <div className="bg-white rounded-[32px] p-2 border border-gray-100 shadow-sm overflow-hidden h-[400px]">
+                      <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15226.772596541607!2d78.43163351984242!3d17.426462719588267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sAWS%20certification%20centers!5e0!3m2!1sen!2sin!4v1715694218654!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style={{ border: 0, borderRadius: '24px' }} 
+                        allowFullScreen={true} 
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                      ></iframe>
                    </div>
-                   <h3 className="font-bold text-white tracking-wide text-sm uppercase">Success Story</h3>
-                 </div>
-                 
-                 <div className="mb-6">
-                   <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Programmer&backgroundColor=transparent" alt="Tech Bro" className="w-16 h-16 rounded-2xl bg-white/10 mb-3 object-contain p-1 border border-white/20" />
-                   <p className="text-sky-200 text-xs font-medium mb-1">From BPO to Cloud Architect at Google</p>
-                   <h4 className="text-white font-bold text-lg leading-tight mb-2">Priya's Journey</h4>
-                   <p className="text-gray-400 text-xs leading-relaxed italic border-l-2 border-sky-500 pl-3">
-                     "I started as a customer support rep. Six months of dedicated AWS upskilling completely transformed my career trajectory."
-                   </p>
-                 </div>
-                 
-                 <button className="w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2.5 rounded-xl backdrop-blur-md transition-all border border-white/10">
-                   Read Full Story
-                 </button>
-               </div>
-            </div>
+                </div>
+                
+                <div className="space-y-6">
+                  {/* Expected Salary Tracker */}
+                  <div className="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-gray-900 flex items-center gap-2">
+                        <TrendingUp className="w-5 h-5 text-emerald-500" /> Tech Salary Insights
+                      </h3>
+                    </div>
+                    <div className="space-y-4">
+                      {[
+                        { label: "AI/ML Engineer", avg: "₹15L - ₹35L", color: "text-purple-600", bg: "bg-purple-50" },
+                        { label: "Cloud Architect", avg: "₹18L - ₹40L", color: "text-sky-600", bg: "bg-sky-50" },
+                        { label: "Full Stack Dev", avg: "₹8L - ₹25L", color: "text-orange-600", bg: "bg-orange-50" },
+                      ].map((stat, i) => (
+                        <div key={i} className="flex flex-col gap-1 pb-4 border-b border-gray-50 last:border-0 last:pb-0">
+                          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</span>
+                          <span className={`text-xl font-bold ${stat.color} flex items-center gap-1`}>
+                            {stat.avg} <span className="text-[10px] text-gray-400 font-medium">/ year</span>
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <button className="w-full mt-4 py-2.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-xl hover:bg-gray-100 transition-colors">
+                      View Detailed Trends
+                    </button>
+                  </div>
 
+                  {/* Legendary Inspiration */}
+                  <div className="bg-[#0f172a] rounded-[32px] p-6 relative overflow-hidden group">
+                     <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+                     <div className="absolute -right-10 -top-10 w-32 h-32 bg-sky-500/30 rounded-full blur-[40px] group-hover:bg-sky-400/40 transition-colors"></div>
+                     
+                     <div className="relative z-10">
+                       <div className="flex items-center gap-2 mb-4">
+                         <div className="w-8 h-8 rounded-lg bg-sky-500/20 flex items-center justify-center">
+                           <Star className="w-4 h-4 text-sky-400" />
+                         </div>
+                         <h3 className="font-bold text-white tracking-wide text-sm uppercase">Success Story</h3>
+                       </div>
+                       
+                       <div className="mb-6">
+                         <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Programmer&backgroundColor=transparent" alt="Tech Bro" className="w-16 h-16 rounded-2xl bg-white/10 mb-3 object-contain p-1 border border-white/20" />
+                         <p className="text-sky-200 text-xs font-medium mb-1">From BPO to Cloud Architect</p>
+                         <h4 className="text-white font-bold text-lg leading-tight mb-2">Priya&apos;s Journey</h4>
+                         <p className="text-gray-400 text-xs leading-relaxed italic border-l-2 border-sky-500 pl-3">
+                           &quot;I started as a support rep. Six months of dedicated AWS upskilling completely transformed my career trajectory.&quot;
+                         </p>
+                       </div>
+                       
+                       <button className="w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2.5 rounded-xl backdrop-blur-md transition-all border border-white/10">
+                         Read Full Story
+                       </button>
+                     </div>
+                  </div>
+                </div>
           </div>
         </div>
       </div>

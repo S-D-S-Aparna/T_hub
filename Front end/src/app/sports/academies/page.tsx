@@ -1,10 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Search, Star, MapPin, Building2, MoreHorizontal } from "lucide-react";
 
 export default function AcademiesPage() {
+  const [academies, setAcademies] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/academies')
+      .then(res => res.json())
+      .then(data => {
+        setAcademies(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load academies", err);
+        setLoading(false);
+      });
+  }, []);
   const sports = [
     { name: "Cricket", icon: "🏏" },
     { name: "Football", icon: "⚽" },
@@ -13,38 +29,6 @@ export default function AcademiesPage() {
     { name: "More", icon: <MoreHorizontal className="w-4 h-4" /> }
   ];
 
-  const academies = [
-    {
-      id: 1,
-      name: "Pro Performance Academy",
-      sport: "Cricket",
-      rating: 4.8,
-      reviews: 120,
-      location: "Mumbai",
-      price: "₹2,000",
-      image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2069&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      name: "Champions Sports Hub",
-      sport: "Football",
-      rating: 4.7,
-      reviews: 95,
-      location: "Bangalore",
-      price: "₹2,500",
-      image: "https://images.unsplash.com/photo-1518605368461-1e1e38ce7059?q=80&w=2072&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      name: "Elite Badminton Center",
-      sport: "Badminton",
-      rating: 4.9,
-      reviews: 210,
-      location: "Hyderabad",
-      price: "₹1,800",
-      image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070&auto=format&fit=crop"
-    }
-  ];
 
   return (
     <SportsLayout>
@@ -109,7 +93,11 @@ export default function AcademiesPage() {
         <div>
           <h3 className="font-bold text-gray-900 mb-4 px-2">Top Academies</h3>
           <div className="space-y-4">
-            {academies.map((academy) => (
+            {loading ? (
+              <p className="text-gray-500 text-sm px-2">Loading academies...</p>
+            ) : academies.length === 0 ? (
+              <p className="text-gray-500 text-sm px-2">No academies found.</p>
+            ) : academies.map((academy) => (
               <div key={academy.id} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 flex gap-4 hover:shadow-md hover:border-indigo-100 transition-all group cursor-pointer">
                 
                 <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 relative">

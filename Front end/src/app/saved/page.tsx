@@ -48,7 +48,7 @@ export default function Saved() {
       })
       .then((data) => {
         if (isMounted) {
-          setItems(data);
+          setItems(data.savedItems || []);
           setError("");
         }
       })

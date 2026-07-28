@@ -1,48 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Search, Star, Users } from "lucide-react";
 
 export default function CoachesPage() {
-  const coaches = [
-    {
-      id: 1,
-      name: "Arjun Mehta",
-      role: "Cricket Coach",
-      rating: 4.8,
-      reviews: 156,
-      experience: "8+ Years Exp",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun&style=circle&backgroundColor=e2e8f0"
-    },
-    {
-      id: 2,
-      name: "Priya Sharma",
-      role: "Badminton Coach",
-      rating: 4.9,
-      reviews: 204,
-      experience: "10+ Years Exp",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya&style=circle&backgroundColor=e2e8f0"
-    },
-    {
-      id: 3,
-      name: "Rahul Varma",
-      role: "Football Coach",
-      rating: 4.7,
-      reviews: 89,
-      experience: "5+ Years Exp",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul&style=circle&backgroundColor=e2e8f0"
-    },
-    {
-      id: 4,
-      name: "Neha Kapoor",
-      role: "Fitness Coach",
-      rating: 4.9,
-      reviews: 310,
-      experience: "7+ Years Exp",
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Neha&style=circle&backgroundColor=e2e8f0"
-    }
-  ];
+  const [coaches, setCoaches] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/coaches')
+      .then(res => res.json())
+      .then(data => {
+        // map backend MentorProfile to frontend structure if needed
+        const mapped = data.map((c: any) => ({
+          id: c.id,
+          name: c.user?.name || "Unknown",
+          role: c.expertise + " Coach",
+          rating: c.rating,
+          reviews: c.totalSessions,
+          experience: c.yearsExperience + "+ Years Exp",
+          image: "https://api.dicebear.com/7.x/avataaars/svg?seed=" + c.user?.name + "&style=circle&backgroundColor=e2e8f0"
+        }));
+        setCoaches(mapped);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load coaches", err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <SportsLayout>
@@ -89,8 +77,12 @@ export default function CoachesPage() {
 
         {/* Coaches List */}
         <div>
-          <div className="space-y-3">
-            {coaches.map((coach) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {loading ? (
+              <p className="text-gray-500 text-sm">Loading coaches...</p>
+            ) : coaches.length === 0 ? (
+              <p className="text-gray-500 text-sm">No coaches found.</p>
+            ) : coaches.map((coach) => (
               <div key={coach.id} className="bg-white rounded-[24px] p-4 shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md hover:border-indigo-100 transition-all group cursor-pointer">
                 
                 <div className="flex items-center gap-4">

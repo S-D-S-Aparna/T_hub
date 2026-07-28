@@ -1,21 +1,48 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Apple, Flame, Plus, Info } from "lucide-react";
 
 export default function NutritionPlannerPage() {
+  const [dietPlan, setDietPlan] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/nutrition')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setDietPlan(data[0]); // get first plan
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
   const macros = [
     { name: "Carbs", current: 150, max: 250, color: "bg-blue-500" },
     { name: "Protein", current: 90, max: 140, color: "bg-rose-500" },
     { name: "Fats", current: 40, max: 65, color: "bg-amber-500" }
   ];
 
-  const meals = [
-    { type: "Breakfast", name: "Oatmeal with berries", calories: 350, time: "08:00 AM" },
-    { type: "Lunch", name: "Grilled Chicken Salad", calories: 450, time: "01:30 PM" },
-    { type: "Snack", name: "Protein Shake", calories: 150, time: "05:00 PM" }
-  ];
+  let meals = [];
+  if (dietPlan && dietPlan.meals) {
+    try {
+      meals = JSON.parse(dietPlan.meals);
+    } catch(e) {}
+  }
+  if (meals.length === 0) {
+    meals = [
+      { type: "Breakfast", meal: "Oatmeal with berries", calories: 350, time: "08:00 AM" },
+      { type: "Lunch", meal: "Grilled Chicken Salad", calories: 450, time: "01:30 PM" },
+      { type: "Snack", meal: "Protein Shake", calories: 150, time: "05:00 PM" }
+    ];
+  }
 
   return (
     <SportsLayout>
@@ -53,10 +80,10 @@ export default function NutritionPlannerPage() {
             <Flame className="w-32 h-32 text-rose-500" />
           </div>
 
-          <h2 className="text-sm font-bold text-gray-900 mb-1">Today's Summary</h2>
+          <h2 className="text-sm font-bold text-gray-900 mb-1">Today's Summary - {dietPlan ? dietPlan.title : 'Loading...'}</h2>
           <div className="flex items-end gap-2 mb-6">
-            <span className="text-4xl font-extrabold text-rose-500 tracking-tight">1,250</span>
-            <span className="text-sm font-bold text-gray-500 pb-1">kcal consumed</span>
+            <span className="text-4xl font-extrabold text-rose-500 tracking-tight">{dietPlan ? dietPlan.dailyCalories : 0}</span>
+            <span className="text-sm font-bold text-gray-500 pb-1">kcal target</span>
           </div>
 
           {/* Macros */}
@@ -88,15 +115,15 @@ export default function NutritionPlannerPage() {
           </div>
 
           <div className="space-y-3">
-            {meals.map((meal, idx) => (
+            {loading ? <p className="text-gray-500 text-sm">Loading meals...</p> : meals.map((meal: any, idx: number) => (
               <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 group">
                 <div>
-                  <p className="text-[10px] font-bold text-rose-500 uppercase tracking-wider mb-0.5">{meal.type}</p>
-                  <h4 className="text-sm font-bold text-gray-900">{meal.name}</h4>
+                  <p className="text-[10px] font-bold text-rose-500 uppercase tracking-wider mb-0.5">{meal.time || meal.type}</p>
+                  <h4 className="text-sm font-bold text-gray-900">{meal.meal || meal.name}</h4>
                   <p className="text-[11px] text-gray-500 font-medium">{meal.time}</p>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="font-extrabold text-gray-900">{meal.calories}</span>
+                  <span className="font-extrabold text-gray-900">{meal.calories || 300}</span>
                   <span className="text-[10px] font-bold text-gray-400 uppercase">kcal</span>
                 </div>
               </div>

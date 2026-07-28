@@ -1,36 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Calendar as CalendarIcon, ChevronRight, MapPin, Clock } from "lucide-react";
 
 export default function TrainingCalendarPage() {
-  const schedule = [
-    {
-      id: 1,
-      title: "Morning Run",
-      type: "Cardio",
-      time: "06:00 AM - 07:00 AM",
-      location: "Central Park",
-      color: "bg-blue-50 text-blue-700 border-blue-200"
-    },
-    {
-      id: 2,
-      title: "Team Practice",
-      type: "Cricket",
-      time: "04:30 PM - 06:30 PM",
-      location: "Victory Grounds",
-      color: "bg-indigo-50 text-indigo-700 border-indigo-200"
-    },
-    {
-      id: 3,
-      title: "Physio Session",
-      type: "Recovery",
-      time: "07:30 PM - 08:30 PM",
-      location: "Elite Clinic",
-      color: "bg-teal-50 text-teal-700 border-teal-200"
-    }
-  ];
+  const [schedule, setSchedule] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/training-calendar')
+      .then(res => res.json())
+      .then(data => {
+        setSchedule(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <SportsLayout>
@@ -98,37 +88,46 @@ export default function TrainingCalendarPage() {
           </div>
         </div>
 
-        {/* Schedule */}
-        <div>
-          <div className="flex items-center justify-between mb-4 px-2">
-            <h3 className="font-bold text-gray-900">Today's Schedule</h3>
-            <span className="text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">3 Events</span>
-          </div>
-
-          <div className="space-y-3 pl-4 border-l-2 border-gray-100 ml-4 relative">
-            {schedule.map((event) => (
-              <div key={event.id} className="relative">
-                {/* Timeline dot */}
-                <div className="absolute -left-[21px] top-4 w-3 h-3 bg-white border-2 border-purple-500 rounded-full"></div>
+        {/* Schedule List */}
+        <div className="space-y-4">
+          {loading ? <p className="text-gray-500 text-sm">Loading schedule...</p> : schedule.map((session) => (
+            <div key={session.id} className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4 group hover:shadow-md transition-all cursor-pointer">
+              
+              <div className="flex items-start gap-4">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg border bg-blue-50 text-blue-700 border-blue-200`}>
+                  {new Date(session.date).getDate()}
+                </div>
                 
-                <div className={`p-4 rounded-2xl border ${event.color} ml-4`}>
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-sm">{event.title}</h4>
-                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">{event.type}</span>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-bold text-gray-900 group-hover:text-indigo-700 transition-colors">{session.title}</h3>
+                    <span className="text-[9px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded-md">{session.type}</span>
                   </div>
                   
-                  <div className="space-y-1.5 opacity-90">
-                    <div className="flex items-center gap-1.5 text-[11px] font-medium">
-                      <Clock className="w-3.5 h-3.5" /> {event.time}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs font-medium text-gray-500">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-gray-400" /> {session.startTime} - {session.endTime}
                     </div>
-                    <div className="flex items-center gap-1.5 text-[11px] font-medium">
-                      <MapPin className="w-3.5 h-3.5" /> {event.location}
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-gray-400" /> {session.location}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              
+              <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=A" className="w-full h-full object-cover" /></div>
+                  <div className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=B" className="w-full h-full object-cover" /></div>
+                  <div className="w-8 h-8 rounded-full bg-gray-50 border-2 border-white flex items-center justify-center text-[10px] font-bold text-gray-500">+3</div>
+                </div>
+                <button className="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors">
+                  Join
+                </button>
+              </div>
+
+            </div>
+          ))}
         </div>
 
       </div>

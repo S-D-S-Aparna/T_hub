@@ -7,7 +7,7 @@ export default function CompetitiveLayout({ children }: { children: React.ReactN
       <Navbar />
       <CompetitiveSidebar />
       <main className="lg:pl-64 pt-16 min-h-screen">
-        <div className="p-4 md:p-6 max-w-[1400px] mx-auto">
+        <div className="p-4 md:p-6 max-w-[1600px] mx-auto">
           {children}
         </div>
       </main>

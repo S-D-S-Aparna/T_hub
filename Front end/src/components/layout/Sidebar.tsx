@@ -30,7 +30,7 @@ const secondaryLinks = [
 const userLinks = [
   { href: "/dashboard", label: "My Dashboard", icon: Home },
   { href: "/saved", label: "Saved", icon: Bookmark },
-  { href: "/events", label: "Events & Webinars", icon: Calendar },
+  { href: "/events", label: "Events & Masterclasses", icon: Calendar },
   { href: "/support", label: "Help & Support", icon: HelpCircle },
 ];
 

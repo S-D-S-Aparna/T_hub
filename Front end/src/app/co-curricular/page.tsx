@@ -44,10 +44,7 @@ export default function CoCurricularHome() {
           <span className="text-gray-500">Mastery</span>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-8 mb-10">
-          
-          {/* Main Content Area */}
-          <div className="flex-1 space-y-8">
+        <div className="space-y-10 mb-10">
             
             {/* Hero Banner (Matching Education/Competitive Page) */}
             <div className="bg-gradient-to-r from-[#fdf4ff] to-[#fce7f3] rounded-[32px] p-8 md:p-12 border border-pink-50 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm">
@@ -80,7 +77,7 @@ export default function CoCurricularHome() {
             </div>
 
             {/* Categories Grid (Matching Education Grid) */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
               {[
                 { title: "Dance", desc: "Hip-hop, Classical, Choreo.", options: "10+ Styles", color: "bg-[#e11d48]", icon: "🕺", href: "/co-curricular/dance" },
                 { title: "Content Creation", desc: "YouTube, Insta, Influencer.", options: "Viral Strategies", color: "bg-[#db2777]", icon: "📸", href: "/co-curricular/content-creators" },
@@ -88,7 +85,7 @@ export default function CoCurricularHome() {
                 { title: "Startups", desc: "Tech, MVPs, Funding.", options: "Build Unicorns", color: "bg-[#2563eb]", icon: "🚀", href: "/co-curricular/startups" },
                 { title: "Music", desc: "Singing, Production, DJ.", options: "Audio Mastery", color: "bg-[#7c3aed]", icon: "🎧", href: "/co-curricular/singing-and-music" }
               ].map((cat, i) => (
-                <Link href={cat.href} key={i} className="bg-white rounded-[24px] p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 group flex flex-col h-full hover:-translate-y-1 block cursor-pointer">
+                <Link href={cat.href} key={i} className="bg-white rounded-[32px] p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 group flex flex-col h-full hover:-translate-y-1 block cursor-pointer">
                   <div className="text-4xl mb-4 text-center">{cat.icon}</div>
                   <h3 className={`font-bold text-center text-lg mb-2 text-gray-900`}>{cat.title}</h3>
                   <p className="text-[11px] text-center text-gray-500 mb-4 flex-grow leading-relaxed px-1">{cat.desc}</p>
@@ -188,7 +185,6 @@ export default function CoCurricularHome() {
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl ${event.bg} group-hover:shadow-md transition-shadow`}>{event.icon}</div>
                         <div className="text-center">
                           <p className="text-[10px] font-bold text-gray-800">{event.name}</p>
-                          <p className="text-[9px] font-medium text-gray-500">{event.date}</p>
                         </div>
                      </div>
                    ))}
@@ -239,104 +235,68 @@ export default function CoCurricularHome() {
               </div>
             </div>
             
-            {/* Find Studios Map */}
-            <div className="mt-8">
-               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <MapPin className="w-6 h-6 text-pink-500" /> Find Creative Hubs & Studios Near You
-               </h2>
-               <div className="bg-white rounded-[24px] p-2 border border-gray-100 shadow-sm overflow-hidden h-[400px]">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15226.772596541607!2d78.43163351984242!3d17.426462719588267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sdance%20studios!5e0!3m2!1sen!2sin!4v1715694218654!5m2!1sen!2sin" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0, borderRadius: '16px' }} 
-                    allowFullScreen={true} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-               </div>
-            </div>
-            
-          </div>
+            {/* Bottom Grid: Map + Mentors & News */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2">
+                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                    <MapPin className="w-6 h-6 text-pink-500" /> Find Creative Hubs & Studios Near You
+                 </h2>
+                 <div className="bg-white rounded-[32px] p-2 border border-gray-100 shadow-sm overflow-hidden h-[400px]">
+                    <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d15226.772596541607!2d78.43163351984242!3d17.426462719588267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sdance%20studios!5e0!3m2!1sen!2sin!4v1715694218654!5m2!1sen!2sin" 
+                      width="100%" 
+                      height="100%" 
+                      style={{ border: 0, borderRadius: '24px' }} 
+                      allowFullScreen={true} 
+                      loading="lazy" 
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                 </div>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Expert Mentors */}
+                <div className="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm">
+                   <h3 className="font-bold text-gray-900 mb-5 text-[15px]">Expert Mentors</h3>
+                   <div className="space-y-4">
+                     {mentors.map((mentor, i) => (
+                       <div key={mentor._id || i} className="flex items-center gap-3 group cursor-pointer">
+                         <img src={mentor.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${mentor.name}`} alt={mentor.name} className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100" />
+                         <div className="flex-1">
+                           <h4 className="font-bold text-gray-900 text-xs group-hover:text-pink-600 transition-colors">{mentor.name}</h4>
+                           <p className="text-[10px] text-gray-500 font-medium">{mentor.role}</p>
+                         </div>
+                         <button className="text-[10px] font-bold text-pink-600 bg-pink-50 px-2.5 py-1.5 rounded-lg group-hover:bg-pink-600 group-hover:text-white transition-colors">
+                           Book
+                         </button>
+                       </div>
+                     ))}
+                   </div>
+                </div>
 
-          {/* Right Sidebar (Matching Education Page Sidebar) */}
-          <div className="w-full xl:w-[320px] space-y-6">
-            
-            {/* AI Assistant */}
-            <div className="bg-white rounded-3xl p-6 border border-pink-100 shadow-sm relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-50/80 to-purple-50/80 z-0"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform group-hover:shadow-md">
-                    <Bot className="w-6 h-6 text-[#db2777]" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 flex items-center gap-1 text-lg">Be You AI Mentor <span className="text-yellow-500">✨</span></h3>
-                  </div>
+                {/* Latest News */}
+                <div className="bg-white rounded-[32px] p-6 border border-gray-100 shadow-sm">
+                   <h3 className="font-bold text-gray-900 mb-5 text-[15px]">Creator News</h3>
+                   <div className="space-y-4">
+                     {[
+                       { title: "YouTube updates Shorts monetization", date: "2 hours ago", color: "text-red-500" },
+                       { title: "Y Combinator announces W25 batch", date: "5 hours ago", color: "text-orange-500" },
+                       { title: "New CapCut AI features released", date: "1 day ago", color: "text-blue-500" },
+                     ].map((news, i) => (
+                       <div key={i} className="flex gap-3 group cursor-pointer">
+                         <div className="mt-1">
+                           <Newspaper className={`w-4 h-4 ${news.color}`} />
+                         </div>
+                         <div>
+                           <h4 className="font-semibold text-gray-800 text-[11px] leading-snug group-hover:text-pink-600 transition-colors mb-1">{news.title}</h4>
+                           <p className="text-[9px] text-gray-400 font-medium uppercase tracking-wider">{news.date}</p>
+                         </div>
+                       </div>
+                     ))}
+                   </div>
                 </div>
-                <p className="text-sm text-gray-600 mb-6 font-medium">Your smart guide for building an audience, learning skills, and monetizing your passion.</p>
-                
-                <div className="space-y-3 mb-6">
-                  <p className="text-[11px] font-bold text-pink-400 uppercase tracking-wider">Try asking me...</p>
-                  <div className="bg-white border border-pink-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-pink-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>How to edit cinematic vlogs?</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-pink-300 group-hover/q:text-pink-600 group-hover/q:translate-x-1 transition-all" />
-                  </div>
-                  <div className="bg-white border border-pink-50 rounded-xl p-3.5 text-xs font-medium text-gray-700 hover:border-pink-300 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group/q" onClick={() => window.location.href='/chat'}>
-                  <span>How to pitch to Y Combinator?</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-pink-300 group-hover/q:text-pink-600 group-hover/q:translate-x-1 transition-all" />
-                  </div>
-                </div>
-                
-                <button className="w-full bg-[#db2777] text-white font-bold py-3.5 rounded-xl shadow-md shadow-pink-200/50 hover:bg-pink-700 hover:-translate-y-0.5 transition-all text-sm">
-                  Start Chatting
-                </button>
               </div>
             </div>
-
-            {/* Expert Mentors */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-               <h3 className="font-bold text-gray-900 mb-5 text-[15px]">Expert Mentors</h3>
-               <div className="space-y-4">
-                 {mentors.map((mentor, i) => (
-                   <div key={mentor._id || i} className="flex items-center gap-3 group cursor-pointer">
-                     <img src={mentor.profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${mentor.name}`} alt={mentor.name} className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100" />
-                     <div className="flex-1">
-                       <h4 className="font-bold text-gray-900 text-xs group-hover:text-pink-600 transition-colors">{mentor.name}</h4>
-                       <p className="text-[10px] text-gray-500 font-medium">{mentor.role}</p>
-                     </div>
-                     <button className="text-[10px] font-bold text-pink-600 bg-pink-50 px-2.5 py-1.5 rounded-lg group-hover:bg-pink-600 group-hover:text-white transition-colors">
-                       Book
-                     </button>
-                   </div>
-                 ))}
-               </div>
-               
-            </div>
-
-            {/* Latest News */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-               <h3 className="font-bold text-gray-900 mb-5 text-[15px]">Creator News</h3>
-               <div className="space-y-4">
-                 {[
-                   { title: "YouTube updates Shorts monetization", date: "2 hours ago", color: "text-red-500" },
-                   { title: "Y Combinator announces W25 batch", date: "5 hours ago", color: "text-orange-500" },
-                   { title: "New CapCut AI features released", date: "1 day ago", color: "text-blue-500" },
-                 ].map((news, i) => (
-                   <div key={i} className="flex gap-3 group cursor-pointer">
-                     <div className="mt-1">
-                       <Newspaper className={`w-4 h-4 ${news.color}`} />
-                     </div>
-                     <div>
-                       <h4 className="font-semibold text-gray-800 text-[11px] leading-snug group-hover:text-pink-600 transition-colors mb-1">{news.title}</h4>
-                       <p className="text-[9px] text-gray-400 font-medium uppercase tracking-wider">{news.date}</p>
-                     </div>
-                   </div>
-                 ))}
-               </div>
-            </div>
-
-          </div>
         </div>
       </div>
     </MainLayout>

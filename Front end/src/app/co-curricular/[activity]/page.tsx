@@ -182,10 +182,7 @@ export default function CoCurricularDynamicPage() {
           <span className="text-gray-800 font-medium border-b-2 border-indigo-600 pb-0.5">{data.title}</span>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-8 mb-10">
-          
-          {/* Main Content Area */}
-          <div className="flex-1 space-y-8">
+        <div className="space-y-10 mb-10">
             
             {/* Hero Banner (Matching Exact Layout) */}
             <div className={`bg-gradient-to-r ${t.gradient} rounded-[32px] p-8 md:p-12 border ${t.border} relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-sm`}>
@@ -316,39 +313,9 @@ export default function CoCurricularDynamicPage() {
             </div>
             
           </div>
-
-          {/* Right Sidebar - Sticky */}
-          <div className="w-full xl:w-[320px] space-y-6">
-            
-            {/* AI Assistant */}
-            <div className={`bg-gradient-to-b ${t.gradient} rounded-3xl p-6 border ${t.borderLight} shadow-sm relative overflow-hidden`}>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-                    <Bot className={`w-5 h-5 ${t.text}`} />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 text-[15px]">AI Mentor</h3>
-                    <p className={`text-[11px] font-semibold ${t.text} uppercase tracking-wider`}>Ask Anything</p>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-600 mb-5 font-medium leading-relaxed">Stuck on your journey? Ask our AI for personalized advice on {data.title}.</p>
-                
-                <div className="space-y-2.5 mb-5">
-                  {data.aiQueries.map((q: string, i: number) => (
-                    <div key={i} className="bg-white rounded-lg p-3 text-xs font-semibold text-gray-700 hover:shadow-sm cursor-pointer transition-all flex items-center justify-between group border border-transparent hover:border-gray-200">
-                      <span className="truncate pr-2">{q}</span>
-                      <ArrowRight className={`w-3.5 h-3.5 text-gray-300 group-hover:${t.text} transition-colors flex-shrink-0`} />
-                    </div>
-                  ))}
-                </div>
-                
-                <button className={`w-full ${t.bg} text-white font-bold py-3 rounded-xl shadow-sm ${t.bgHover} transition-colors text-sm`}>
-                  Start Chatting
-                </button>
-              </div>
-            </div>
-            
+          
+          {/* Bottom Grid: Insights & Success Stories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             {/* Earnings Insights */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
                <h3 className="font-bold text-gray-900 text-[15px] mb-5">Expected Income</h3>
@@ -366,22 +333,20 @@ export default function CoCurricularDynamicPage() {
             </div>
             
             {/* Success Story */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative overflow-hidden group cursor-pointer">
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative overflow-hidden group cursor-pointer h-full flex flex-col justify-center">
                <div className={`absolute top-0 right-0 w-24 h-24 ${t.bgLight} rounded-full blur-2xl opacity-50 group-hover:scale-150 transition-transform duration-700`}></div>
                <h3 className="font-bold text-gray-900 text-[15px] mb-4">Legendary Inspiration</h3>
-               <div className="flex gap-3">
-                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${data.successName}&style=circle`} alt={data.successName} className="w-14 h-14 bg-gray-50 rounded-full shadow-sm border-2 border-white object-cover" />
+               <div className="flex gap-4 items-center">
+                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${data.successName}&style=circle`} alt={data.successName} className="w-16 h-16 bg-gray-50 rounded-full shadow-sm border-2 border-white object-cover" />
                   <div>
-                     <h4 className="font-bold text-gray-900 text-[13px]">{data.successName}</h4>
-                     <p className="text-[10px] text-gray-500 font-medium mb-1">{data.successDesc}</p>
+                     <h4 className="font-bold text-gray-900 text-[14px]">{data.successName}</h4>
+                     <p className="text-[11px] text-gray-500 font-medium mb-1">{data.successDesc}</p>
                      <p className="text-[11px] text-gray-600 font-medium italic">&quot;{data.successQuote}&quot;</p>
                   </div>
                </div>
             </div>
-
           </div>
         </div>
-      </div>
     </MainLayout>
   );
 }

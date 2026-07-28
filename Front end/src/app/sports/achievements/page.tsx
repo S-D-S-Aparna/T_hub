@@ -1,17 +1,48 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SportsLayout from "@/components/layout/SportsLayout";
 import Link from "next/link";
 import { ChevronLeft, Award, Medal, Zap, Trophy, Flame } from "lucide-react";
 
 export default function AchievementsPage() {
-  const badges = [
+  const [achievementsData, setAchievementsData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/achievements')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setAchievementsData(data[0]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+  let badges = [
     { name: "First Win", icon: <Trophy className="w-6 h-6" />, color: "bg-amber-100 text-amber-600", earned: true },
     { name: "30 Day Streak", icon: <Flame className="w-6 h-6" />, color: "bg-orange-100 text-orange-600", earned: true },
     { name: "Top Scorer", icon: <Medal className="w-6 h-6" />, color: "bg-indigo-100 text-indigo-600", earned: false },
     { name: "Early Bird", icon: <Zap className="w-6 h-6" />, color: "bg-blue-100 text-blue-600", earned: true }
   ];
 
+  if (achievementsData && achievementsData.badges) {
+    try {
+      const parsedBadges = JSON.parse(achievementsData.badges);
+      if (Array.isArray(parsedBadges) && parsedBadges.length > 0) {
+        badges = parsedBadges.map((b: string, i: number) => ({
+          name: b,
+          icon: i % 2 === 0 ? <Trophy className="w-6 h-6" /> : <Medal className="w-6 h-6" />,
+          color: i % 2 === 0 ? "bg-amber-100 text-amber-600" : "bg-indigo-100 text-indigo-600",
+          earned: true
+        }));
+      }
+    } catch(e) {}
+  }
   return (
     <SportsLayout>
       <div className="max-w-5xl mx-auto pb-20">
@@ -51,19 +82,19 @@ export default function AchievementsPage() {
           <div className="relative z-10">
             <p className="text-xs font-bold text-amber-100 uppercase tracking-widest mb-1">Total Points</p>
             <div className="flex items-end gap-2 mb-6">
-               <h2 className="text-5xl font-extrabold tracking-tighter">1,250</h2>
+               <h2 className="text-5xl font-extrabold tracking-tighter">{loading ? '...' : achievementsData?.points || '1,250'}</h2>
                <span className="text-sm font-bold pb-1 text-amber-100">XP</span>
             </div>
 
             <div className="flex items-center gap-4 border-t border-amber-300/30 pt-4">
                <div>
                   <p className="text-[10px] text-amber-100 font-bold uppercase mb-1">Current Streak</p>
-                  <p className="font-extrabold text-lg flex items-center gap-1"><Flame className="w-4 h-4" /> 14 Days</p>
+                  <p className="font-extrabold text-lg flex items-center gap-1"><Flame className="w-4 h-4" /> {loading ? '...' : achievementsData?.streakDays || 14} Days</p>
                </div>
                <div className="w-px h-8 bg-amber-300/30"></div>
                <div>
                   <p className="text-[10px] text-amber-100 font-bold uppercase mb-1">Level</p>
-                  <p className="font-extrabold text-lg">Pro Athlete</p>
+                  <p className="font-extrabold text-lg">{loading ? '...' : achievementsData?.level || 'Pro Athlete'}</p>
                </div>
             </div>
           </div>
@@ -73,7 +104,7 @@ export default function AchievementsPage() {
         <div className="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-sm font-bold text-gray-900">Badges & Medals</h2>
-            <span className="text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">3/12 Unlocked</span>
+            <span className="text-xs font-bold text-gray-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">{badges.filter(b => b.earned).length}/{badges.length} Unlocked</span>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
