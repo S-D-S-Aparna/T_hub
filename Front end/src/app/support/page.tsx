@@ -29,7 +29,7 @@ export default function Support() {
     setSuccess(false);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/support`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/support`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,7 +13,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/layout/Navbar";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}`;
 
 const CATEGORIES = [
   { id: "all-mentors", name: "All Mentors", icon: Users },

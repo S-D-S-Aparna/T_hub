@@ -19,7 +19,7 @@ export default function Scholarships() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/scholarships`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/scholarships`)
       .then(res => res.json())
       .then(data => {
         setScholarships(data.scholarships || []);

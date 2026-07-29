@@ -19,7 +19,7 @@ export default function LiveTracking({ setLiveData }: { setLiveData: (data: any)
   }, [data]);
 
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000");
+    const socket = io(process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}`);
 
     socket.on("connect", () => {
       socket.emit("join_fitness_sync");

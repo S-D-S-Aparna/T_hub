@@ -17,7 +17,7 @@ export default function Resources() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/resources`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/resources`)
       .then(res => res.json())
       .then(data => {
         setResources(data.resources || []);

@@ -90,7 +90,7 @@ export default function EducationLevelPage() {
 
     try {
       setLoading(event.id);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/event-registrations`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/event-registrations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

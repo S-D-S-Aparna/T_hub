@@ -10,7 +10,7 @@ export default function LiveCoachingPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/live-sessions`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/live-sessions`)
       .then(res => res.json())
       .then(data => {
         setSessions(data);

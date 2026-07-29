@@ -11,7 +11,7 @@ import axios from "axios";
 const getToken = () => typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 // Replace with your actual backend URL or use env var
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}`;
 
 export default function ChatPage() {
   const [activeRoom, setActiveRoom] = useState("sports");

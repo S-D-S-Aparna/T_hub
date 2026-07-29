@@ -11,7 +11,7 @@ export default function FindPlayersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/players`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/players`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
