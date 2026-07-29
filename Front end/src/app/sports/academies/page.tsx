@@ -10,7 +10,7 @@ export default function AcademiesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/academies')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/academies`)
       .then(res => res.json())
       .then(data => {
         setAcademies(data);

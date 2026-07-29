@@ -10,7 +10,7 @@ export default function SportsGroundsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/grounds')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/grounds`)
       .then(res => res.json())
       .then(data => {
         setGrounds(data);

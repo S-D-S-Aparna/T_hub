@@ -11,10 +11,14 @@ export default function FindPlayersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/players')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/players`)
       .then(res => res.json())
       .then(data => {
-        setPlayers(data);
+        if (Array.isArray(data)) {
+          setPlayers(data);
+        } else {
+          setPlayers([]);
+        }
         setLoading(false);
       })
       .catch(err => {
