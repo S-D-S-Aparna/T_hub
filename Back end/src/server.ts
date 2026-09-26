@@ -34,6 +34,7 @@ import storeRoutes from './routes/store';
 import trainingCalendarRoutes from './routes/training-calendar';
 import recoveryRoutes from './routes/recovery';
 import achievementsRoutes from './routes/achievements';
+import aiRoadmapRoutes from './routes/ai-roadmap';
 dotenv.config();
 
 const app = express();
@@ -82,6 +83,7 @@ app.use('/api/store', storeRoutes);
 app.use('/api/training-calendar', trainingCalendarRoutes);
 app.use('/api/recovery', recoveryRoutes);
 app.use('/api/achievements', achievementsRoutes);
+app.use('/api/ai-roadmap', aiRoadmapRoutes);
 app.get('/', (req, res) => {
   res.send('Be You API is running...');
 });

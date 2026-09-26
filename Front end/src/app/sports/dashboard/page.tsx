@@ -10,7 +10,7 @@ export default function PerformanceDashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/sports-dashboard`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/sports-dashboard`)
       .then(res => res.json())
       .then(data => {
         setDashboard(data);

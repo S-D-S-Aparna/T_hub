@@ -42,7 +42,7 @@ const projectSteps = [
       "Add function calling (e.g., check_order_status, refund_item)",
       "Implement streaming responses for better UX",
       "Write unit tests and perform security audits",
-      "Deploy to Vercel (Frontend) and Render (Backend)"
+      "Deploy to Vercel (Frontend) and run locally (Backend)"
     ]
   }
 ];

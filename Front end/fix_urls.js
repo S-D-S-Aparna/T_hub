@@ -25,21 +25,18 @@ files.forEach(file => {
   let originalContent = content;
 
   // Replace any chaotic nesting of process.env.NEXT_PUBLIC_API_URL
-  // Examples: 
-  // `${process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`}/api/achievements`
-  // `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/chat`
   
   // Replace the crazy nested ones first
-  content = content.replace(/\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*\`\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*["']http:\/\/localhost:5000["']\}\`\}/g, 
-      '${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}');
+  content = content.replace(/\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*\`\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*["']https:\/\/t-hub-yxvu\.onrender\.com["']\}\`\}/g, 
+      '${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}');
       
   // Replace single ones
-  content = content.replace(/\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*["']http:\/\/localhost:5000["']\}/g, 
-      '${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}');
+  content = content.replace(/\$\{process\.env\.NEXT_PUBLIC_API_URL\s*\|\|\s*["']https:\/\/t-hub-yxvu\.onrender\.com["']\}/g, 
+      '${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}');
 
   // Replace raw hardcoded ones
-  content = content.replace(/["']http:\/\/localhost:5000([^"']*)["']/g, 
-      '`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}$1`');
+  content = content.replace(/["']https:\/\/t-hub-yxvu\.onrender\.com([^"']*)["']/g, 
+      '`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}$1`');
 
   if (content !== originalContent) {
     fs.writeFileSync(file, content, 'utf8');
@@ -51,7 +48,7 @@ files.forEach(file => {
 const nextConfigPath = path.join(__dirname, 'next.config.ts');
 if (fs.existsSync(nextConfigPath)) {
     let nextContent = fs.readFileSync(nextConfigPath, 'utf8');
-    nextContent = nextContent.replace(/http:\/\/localhost:5000/g, 'https://t-hub-yxvu.onrender.com');
+    nextContent = nextContent.replace(/https:\/\/t-hub-yxvu\.onrender\.com/g, 'http://localhost:5000');
     fs.writeFileSync(nextConfigPath, nextContent, 'utf8');
     console.log('Updated', nextConfigPath);
 }

@@ -76,11 +76,11 @@ export default function Home() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {[
-            { title: "Education", desc: "School, College, Degrees and Study Guidance", icon: "📚", color: "bg-indigo-600", light: "bg-indigo-50", link: "/education" },
-            { title: "Sports", desc: "Athletics, Training, Tournaments & More", icon: "⚽", color: "bg-green-600", light: "bg-green-50", link: "/sports" },
-            { title: "Competitive Exams", desc: "Exams, Preparation, Strategy & Resources", icon: "🎯", color: "bg-orange-500", light: "bg-orange-50", link: "/competitive-exams" },
-            { title: "Co-Curricular Activities", desc: "Music, Dance, Debate, Volunteering & More", icon: "🎸", color: "bg-pink-500", light: "bg-pink-50", link: "/co-curricular" },
-            { title: "Upskilling", desc: "Learn New Skills, Certifications & More", icon: "💻", color: "bg-blue-500", light: "bg-blue-50", link: "/upskilling" },
+            { title: "Career Discovery", desc: "AI Assessment & Recommendations", icon: "🧭", color: "bg-indigo-600", light: "bg-indigo-50", link: "/careers" },
+            { title: "Roadmaps", desc: "Skills, Courses & Projects", icon: "🗺️", color: "bg-green-600", light: "bg-green-50", link: "/roadmap" },
+            { title: "Mentorship", desc: "Connect with Industry Experts", icon: "🤝", color: "bg-orange-500", light: "bg-orange-50", link: "/mentors" },
+            { title: "Opportunities", desc: "Jobs, Internships & Colleges", icon: "💼", color: "bg-pink-500", light: "bg-pink-50", link: "/opportunities" },
+            { title: "Community", desc: "Network & Discussions", icon: "👥", color: "bg-blue-500", light: "bg-blue-50", link: "/community" },
           ].map((cat, i) => (
             <div key={i} className={`bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center hover:-translate-y-1 relative overflow-hidden`}>
               <div className={`absolute top-0 left-0 w-full h-1 ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity`}></div>

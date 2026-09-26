@@ -41,7 +41,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!user) return;
-    const socket = io(process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}`);
+    const socket = io(process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_API_URL || '' : 'http://127.0.0.1:5000');
     socketRef.current = socket;
 
     socket.emit("join_user_room", (user as any).userId || user.id);

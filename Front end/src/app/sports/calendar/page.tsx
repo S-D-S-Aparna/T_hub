@@ -10,7 +10,7 @@ export default function TrainingCalendarPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/training-calendar`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/training-calendar`)
       .then(res => res.json())
       .then(data => {
         setSchedule(data);

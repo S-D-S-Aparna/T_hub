@@ -36,7 +36,7 @@ export default function Events() {
 
     try {
       setRegistering(event.id);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/event-registrations`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/event-registrations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,16 +69,58 @@ export default function Events() {
     }
   };
 
+  const FALLBACK_EVENTS: Event[] = [
+    {
+      id: 101,
+      title: "AI in Production Masterclass",
+      description: "An intensive 2-hour masterclass on deploying AI models to production at scale.",
+      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      location: "Virtual - Zoom",
+      type: "masterclass",
+      url: null
+    },
+    {
+      id: 102,
+      title: "Advanced React Patterns",
+      description: "Master React performance optimization and advanced hooks in this interactive session.",
+      date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+      location: "Virtual - Google Meet",
+      type: "masterclass",
+      url: null
+    },
+    {
+      id: 103,
+      title: "Tech Industry Career Fair 2026",
+      description: "Connect with recruiters from top tech companies actively hiring for summer internships.",
+      date: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
+      location: "Online Expo Hall",
+      type: "Career Fair",
+      url: null
+    },
+    {
+      id: 104,
+      title: "Design Systems Workshop",
+      description: "Learn how to build scalable design systems using Figma and Tailwind CSS.",
+      date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      location: "Virtual - Zoom",
+      type: "Workshop",
+      url: null
+    }
+  ];
+
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/events`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/events`)
       .then(res => res.json())
       .then(data => {
-        setEvents(data.events || []);
-        setFilteredEvents(data.events || []);
+        const fetchedEvents = data.events && data.events.length > 0 ? data.events : FALLBACK_EVENTS;
+        setEvents(fetchedEvents);
+        setFilteredEvents(fetchedEvents);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Error fetching events:", err);
+        console.warn("Error fetching events, falling back to mock data:", err);
+        setEvents(FALLBACK_EVENTS);
+        setFilteredEvents(FALLBACK_EVENTS);
         setLoading(false);
       });
   }, []);

@@ -57,7 +57,47 @@ async function main() {
     }
   });
 
-  console.log('Successfully seeded data for July 27.');
+  // Insert Career Paths for Offline AI Counselor
+  const careerPaths = [
+    {
+      title: 'Data Scientist',
+      description: 'Analyze data to find actionable insights.',
+      coreInterests: ['math', 'technology', 'problem-solving'],
+      minGrade: 'B+',
+      requiredSubjects: ['Mathematics', 'Computer Science'],
+      salary: '$100,000+'
+    },
+    {
+      title: 'Software Engineer',
+      description: 'Build applications and software systems.',
+      coreInterests: ['technology', 'logic', 'building'],
+      minGrade: 'B',
+      requiredSubjects: ['Computer Science'],
+      salary: '$90,000+'
+    },
+    {
+      title: 'Graphic Designer',
+      description: 'Create visual concepts and designs.',
+      coreInterests: ['art', 'creativity', 'technology'],
+      minGrade: 'C',
+      requiredSubjects: ['Art', 'Design'],
+      salary: '$50,000+'
+    },
+    {
+      title: 'Financial Analyst',
+      description: 'Guide businesses in investment decisions.',
+      coreInterests: ['math', 'business', 'analysis'],
+      minGrade: 'A-',
+      requiredSubjects: ['Mathematics', 'Economics'],
+      salary: '$70,000+'
+    }
+  ];
+
+  for (const cp of careerPaths) {
+    await prisma.careerPath.create({ data: cp });
+  }
+
+  console.log('Successfully seeded data for July 27, including CareerPaths.');
 }
 
 main()

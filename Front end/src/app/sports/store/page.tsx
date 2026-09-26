@@ -11,7 +11,7 @@ export default function SportsStorePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/store`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/store`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);

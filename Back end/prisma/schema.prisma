@@ -383,3 +383,14 @@ model Achievement {
   badgeIcon   String
   dateEarned  DateTime @default(now())
 }
+
+model CareerPath {
+  id               Int      @id @default(autoincrement())
+  title            String
+  description      String
+  coreInterests    String[] // e.g., ["math", "science", "technology"]
+  minGrade         String   // e.g., "B", "A", "70%"
+  requiredSubjects String[] // e.g., ["Mathematics", "Physics"]
+  salary           String
+  createdAt        DateTime @default(now())
+}

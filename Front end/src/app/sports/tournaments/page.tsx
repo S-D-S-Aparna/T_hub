@@ -12,7 +12,7 @@ export default function TournamentsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/tournaments`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/tournaments`)
       .then(res => res.json())
       .then(data => {
         setTournaments(data);

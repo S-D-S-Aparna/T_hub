@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface User {
@@ -48,6 +48,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
   const [isLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Setup Axios global headers for Localtunnel bypass
+      import("axios").then((axios) => {
+        axios.default.defaults.headers.common["Bypass-Tunnel-Reminder"] = "true";
+      }).catch(err => console.log("Axios not installed globally"));
+
+      // Intercept Fetch for Localtunnel bypass
+      const originalFetch = window.fetch;
+      window.fetch = async (...args) => {
+        const [resource, originalConfig] = args;
+        const config = originalConfig || {};
+        
+        const headers = new Headers(config.headers || {});
+        headers.set("Bypass-Tunnel-Reminder", "true");
+        
+        return originalFetch(resource, { ...config, headers });
+      };
+    }
+  }, []);
 
   const login = (newToken: string, newUser: User) => {
     setToken(newToken);

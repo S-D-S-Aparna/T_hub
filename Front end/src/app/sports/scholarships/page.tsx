@@ -10,7 +10,7 @@ export default function ScholarshipsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/sports-scholarships`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/sports-scholarships`)
       .then(res => res.json())
       .then(data => {
         setScholarships(data);

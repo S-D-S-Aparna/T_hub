@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Be You | Follow Your Passion",
   description: "Career guidance, mentorship, AI roadmaps, and learning resources for students.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Be You",
+  },
+};
+
+export const viewport = {
+  themeColor: "#4f46e5",
 };
 
 import { AuthProvider } from "@/context/AuthContext";

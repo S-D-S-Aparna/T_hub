@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import RoadmapLayout from "@/components/layout/RoadmapLayout";
 import { Sparkles, ArrowRight, Target, Clock, CheckCircle2, Circle, BookOpen, Briefcase, GraduationCap, Download, Link2, Users } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface Resource {
   name: string;
@@ -41,10 +42,20 @@ interface RichRoadmap {
 }
 
 export default function RoadmapPage() {
+  return (
+    <React.Suspense fallback={<div className="p-8 text-center">Loading Roadmap Builder...</div>}>
+      <RoadmapContent />
+    </React.Suspense>
+  );
+}
+
+function RoadmapContent() {
   const { token, user } = useAuth();
+  const searchParams = useSearchParams();
+  const urlGoal = searchParams.get("goal");
   
   // Form State
-  const [goal, setGoal] = useState("");
+  const [goal, setGoal] = useState(urlGoal || "");
   const [education, setEducation] = useState("");
   const [skills, setSkills] = useState("");
   const [timeline, setTimeline] = useState("6 Months");
@@ -190,41 +201,80 @@ export default function RoadmapPage() {
     return { milestones, mentors };
   };
 
-  const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!goal) return;
+  const handleGenerate = async (e?: React.FormEvent, overrideGoal?: string) => {
+    if (e) e.preventDefault();
+    const targetGoal = overrideGoal || goal;
+    if (!targetGoal) return;
 
     setLoading(true);
     
-    // Simulate AI generation delay
-    setTimeout(() => {
-      const { milestones, mentors } = generateMockData(goal, timeline);
-      
-      const newRoadmap: RichRoadmap = {
-        id: Date.now(),
-        goal,
-        education: education || "Not specified",
-        skills: skills || "Beginner",
-        timeline,
-        createdAt: new Date().toLocaleDateString(),
-        milestones: JSON.stringify(milestones),
-        mentors: JSON.stringify(mentors)
-      };
+    let milestones: RichMilestone[] = [];
+    let mentors: MentorSuggestion[] = [];
 
-      const updatedRoadmaps = [newRoadmap, ...roadmaps];
-      saveRoadmaps(updatedRoadmaps);
-      setActiveRoadmap(newRoadmap);
-      
-      // Reset form briefly
-      setGoal("");
-      setEducation("");
-      setSkills("");
-      setLoading(false);
-      
-      // Scroll to top to see roadmap
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 2000);
+    if (navigator.onLine) {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/ai-roadmap/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ careerTitle: targetGoal })
+        });
+        const data = await res.json();
+        
+        if (data.roadmap && Array.isArray(data.roadmap)) {
+          milestones = data.roadmap;
+          mentors = generateMockData(targetGoal, timeline).mentors;
+        } else {
+          throw new Error("Invalid roadmap data");
+        }
+      } catch (error) {
+        console.error("AI generation failed, falling back to offline mock", error);
+        const fallback = generateMockData(targetGoal, timeline);
+        milestones = fallback.milestones;
+        mentors = fallback.mentors;
+      }
+    } else {
+      const fallback = generateMockData(targetGoal, timeline);
+      milestones = fallback.milestones;
+      mentors = fallback.mentors;
+    }
+
+    const newRoadmap: RichRoadmap = {
+      id: Date.now(),
+      goal: targetGoal,
+      education: education || "Not specified",
+      skills: skills || "Beginner",
+      timeline,
+      createdAt: new Date().toLocaleDateString(),
+      milestones: JSON.stringify(milestones),
+      mentors: JSON.stringify(mentors)
+    };
+
+    const updatedRoadmaps = [newRoadmap, ...roadmaps];
+    saveRoadmaps(updatedRoadmaps);
+    setActiveRoadmap(newRoadmap);
+    
+    if (!overrideGoal) setGoal("");
+    setEducation("");
+    setSkills("");
+    setLoading(false);
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    // If there is a goal in the URL, and it is not already our active roadmap, auto-generate it!
+    if (urlGoal && (!activeRoadmap || activeRoadmap.goal.toLowerCase() !== urlGoal.toLowerCase())) {
+      // Check if we already have it in history to avoid duplicate generation
+      const existing = roadmaps.find(r => r.goal.toLowerCase() === urlGoal.toLowerCase());
+      if (existing) {
+        setActiveRoadmap(existing);
+      } else {
+        // Auto-generate
+        handleGenerate(undefined, urlGoal);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlGoal, roadmaps]);
 
   const toggleMilestone = (roadmapId: number, milestoneId: string) => {
     const updatedRoadmaps = roadmaps.map(rm => {

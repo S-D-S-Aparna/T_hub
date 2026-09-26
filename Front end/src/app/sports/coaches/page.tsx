@@ -10,7 +10,7 @@ export default function CoachesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/coaches`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/coaches`)
       .then(res => res.json())
       .then(data => {
         // map backend MentorProfile to frontend structure if needed

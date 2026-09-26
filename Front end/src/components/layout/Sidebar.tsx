@@ -10,20 +10,18 @@ import {
 
 const mainLinks = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/education", label: "Education", icon: GraduationCap },
-  { href: "/sports", label: "Sports", icon: Target },
-  { href: "/competitive-exams", label: "Competitive Exams", icon: BookOpen },
-  { href: "/co-curricular", label: "Co-Curricular", icon: Palette },
-  { href: "/upskilling", label: "Upskilling", icon: Rocket },
+  { href: "/careers", label: "Career Discovery", icon: Compass },
+  { href: "/roadmap", label: "Career Roadmap", icon: Target },
+  { href: "/opportunities", label: "Jobs & Internships", icon: Rocket },
+  { href: "/mentors", label: "Find a Mentor", icon: Users },
+  { href: "/community", label: "Community", icon: Users },
 ];
 
 const secondaryLinks = [
   { href: "/chat", label: "Be You AI Chat", icon: Rocket },
-  { href: "/community", label: "Community", icon: Users },
-  { href: "/mentors", label: "Mentors", icon: MonitorPlay },
-  { href: "/roadmap", label: "AI Roadmap", icon: Compass },
-  { href: "/scholarships", label: "Scholarships", icon: Award },
-  { href: "/resources", label: "Study Resources", icon: FileText },
+  { href: "/education", label: "Colleges & Courses", icon: GraduationCap },
+  { href: "/applications", label: "Application Tracker", icon: FileText },
+  { href: "/resources", label: "Study Resources", icon: BookOpen },
   { href: "/success-stories", label: "Success Stories", icon: Award },
 ];
 

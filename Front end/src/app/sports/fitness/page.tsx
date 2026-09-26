@@ -21,7 +21,7 @@ export default function FitnessTrackerPage() {
   const [liveData, setLiveData] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/fitness`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/fitness`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {

@@ -13,7 +13,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/layout/Navbar";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}`;
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}`;
 
 const CATEGORIES = [
   { id: "all-mentors", name: "All Mentors", icon: Users },
@@ -204,7 +204,7 @@ export default function CommunityPage() {
         </aside>
 
         {/* MAIN FEED */}
-        <main className="lg:col-span-6 flex flex-col gap-6">
+        <main className="lg:col-span-9 flex flex-col gap-6">
           {/* Banner */}
           <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-fuchsia-600 rounded-[24px] p-8 text-white shadow-md relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
@@ -571,70 +571,7 @@ export default function CommunityPage() {
           )}
         </main>
 
-        {/* RIGHT SIDEBAR - WIDGETS */}
-        <aside className="lg:col-span-3 hidden lg:flex flex-col gap-6">
-          {/* About */}
-          <div className="bg-white rounded-[24px] p-5 shadow-sm border border-indigo-50/50">
-            <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Globe className="w-5 h-5 text-indigo-500" /> About Community
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed mb-4">
-              Welcome to the {currentCategoryData.name} hub! Connect with peers, find mentors, and stay updated with the latest trends and opportunities.
-            </p>
-            <div className="flex justify-between items-center text-sm py-3 border-t border-gray-50">
-              <span className="text-gray-500">Created</span>
-              <span className="font-semibold text-gray-900">Jan 2024</span>
-            </div>
-            <div className="flex justify-between items-center text-sm py-3 border-t border-gray-50">
-              <span className="text-gray-500">Members</span>
-              <span className="font-semibold text-gray-900">1</span>
-            </div>
-          </div>
 
-
-
-          {/* Top Contributors */}
-          <div className="bg-white rounded-[24px] p-5 shadow-sm border border-indigo-50/50">
-            <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-indigo-500" /> Top Contributors
-            </h3>
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center font-bold text-sm text-gray-600">
-                    U{i}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-bold text-gray-900">User Name {i}</h4>
-                    <p className="text-[10px] text-gray-500">1.2k Reputations</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Upcoming Events */}
-          <div className="bg-white rounded-[24px] p-5 shadow-sm border border-indigo-50/50">
-            <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-indigo-500" /> Upcoming Events
-            </h3>
-            <div className="space-y-3">
-              <div className="flex gap-3 items-start">
-                <div className="bg-indigo-50 rounded-lg p-2 text-center min-w-[48px]">
-                  <p className="text-[10px] font-bold text-indigo-600 uppercase">Aug</p>
-                  <p className="text-sm font-black text-indigo-900">12</p>
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-gray-900 line-clamp-2">Mastering {currentCategoryData.name} Workshop</h4>
-                  <p className="text-[10px] text-gray-500 mt-1">Online • Free</p>
-                </div>
-              </div>
-            </div>
-            <Link href="/events" className="block text-center w-full mt-4 text-indigo-600 text-xs font-bold hover:underline">
-              View All Events
-            </Link>
-          </div>
-        </aside>
 
       </div>
     </div>

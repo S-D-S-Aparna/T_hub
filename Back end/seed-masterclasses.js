@@ -8,14 +8,14 @@ async function main() {
     {
       title: "AI in Production Masterclass",
       description: "An intensive 2-hour masterclass on deploying AI models to production at scale.",
-      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      date: new Date("2026-10-15T14:00:00Z"),
       location: "Virtual - Zoom",
       type: "masterclass",
     },
     {
       title: "Advanced React Patterns",
       description: "Master React performance optimization and advanced hooks in this interactive session.",
-      date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      date: new Date("2026-11-05T18:00:00Z"),
       location: "Virtual - Google Meet",
       type: "masterclass",
     }

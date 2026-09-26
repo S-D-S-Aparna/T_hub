@@ -10,7 +10,7 @@ export default function NutritionPlannerPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://t-hub-yxvu.onrender.com"}/api/nutrition`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/nutrition`)
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
