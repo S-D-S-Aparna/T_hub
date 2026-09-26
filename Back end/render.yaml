@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: be-you-api
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      # Make sure to set your DATABASE_URL, JWT_SECRET, and GEMINI_API_KEY in the Render dashboard!
